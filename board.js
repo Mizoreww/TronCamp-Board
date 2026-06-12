@@ -6,7 +6,7 @@
   var cfg = window.BOARD_CONFIG || {};
   var URL = cfg.BOARD_DATA_URL || './data/leaderboard.json';
   var REFRESH = (cfg.REFRESH_SECONDS || 60) * 1000;
-  var BOARD = document.body.dataset.board || 'dev';
+  var BOARD = 'dev';  // 实际值在 DOMContentLoaded 时从 <body data-board> 读取
 
   function pts(x) {
     return (x === null || x === undefined) ? '—' : (x * 100).toFixed(1);
@@ -82,6 +82,7 @@
   }
 
   window.addEventListener('DOMContentLoaded', function () {
+    BOARD = document.body.dataset.board || 'dev';
     load();
     setInterval(load, REFRESH);
   });
