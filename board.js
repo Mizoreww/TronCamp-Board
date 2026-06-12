@@ -47,23 +47,58 @@
       '</tr>';
   }
 
+  var countdownTimer = null;
+
+  function renderCountdown(deadline) {
+    var el = document.getElementById('countdown');
+    if (!el) return false;
+    if (!deadline) { el.textContent = ''; return false; }
+    var end = new Date(deadline).getTime();
+    function tick() {
+      var ms = end - Date.now();
+      if (ms <= 0) {
+        el.textContent = '已截止 · 榜单已冻结为最终成绩';
+        el.classList.add('over');
+        return;
+      }
+      var s = Math.floor(ms / 1000);
+      var d = Math.floor(s / 86400);
+      var pad = function (n) { return String(n).padStart(2, '0'); };
+      el.textContent = '距截止 ' + d + ' 天 ' + pad(Math.floor(s % 86400 / 3600)) +
+        ':' + pad(Math.floor(s % 3600 / 60)) + ':' + pad(s % 60);
+    }
+    if (countdownTimer) clearInterval(countdownTimer);
+    tick();
+    countdownTimer = setInterval(tick, 1000);
+    return end - Date.now() <= 0;
+  }
+
   function render(data) {
     var updated = document.getElementById('updated');
     if (updated) updated.textContent = '更新于 ' + (data.generated_at || '—');
+    var over = renderCountdown(data.deadline);
 
     var locked = document.getElementById('locked');
     var table = document.getElementById('board');
     var empty = document.getElementById('empty');
 
-    if (BOARD === 'final' && !data.final_unlocked) {
-      if (locked) locked.hidden = false;
-      if (table) table.hidden = true;
-      if (empty) empty.hidden = true;
-      return;
+    // final = 截止时刻冻结的 dev 榜(不单独统跑);截止前 final 页显示倒计时
+    var rows;
+    if (BOARD === 'final') {
+      if (data.final_unlocked && data.final.length) {
+        rows = data.final;
+      } else if (over) {
+        rows = data.dev || [];
+      } else {
+        if (locked) locked.hidden = false;
+        if (table) table.hidden = true;
+        if (empty) empty.hidden = true;
+        return;
+      }
     }
     if (locked) locked.hidden = true;
 
-    var rows = data[BOARD] || [];
+    rows = rows || data[BOARD] || [];
     if (!rows.length) {
       if (table) table.hidden = true;
       if (empty) empty.hidden = false;

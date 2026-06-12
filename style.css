@@ -150,3 +150,12 @@ td .neg { color: #f08c8c; }
   body { padding: 2.5rem 0.6rem; }
   tbody td { padding: 0.8rem 0.35rem; font-size: 0.98rem; }
 }
+
+#countdown {
+  color: var(--accent);
+  font-family: ui-monospace, 'SF Mono', Consolas, monospace;
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+}
+
+#countdown.over { color: #f0b35c; }
