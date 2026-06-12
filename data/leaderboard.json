@@ -1,0 +1,33 @@
+{
+  "generated_at": "2026-06-12T00:00:00Z",
+  "final_unlocked": false,
+  "dev": [
+    {
+      "rank": 1,
+      "team": "示例队A",
+      "t3_composite": 0.71,
+      "delta2": 0.06,
+      "delta1": 0.09,
+      "wipe_rate": 0.78,
+      "force_quality": 0.66,
+      "t1_clean": 0.83,
+      "baseline": false,
+      "n_submissions": 4,
+      "last_submit": "2026-06-12 00:00:00"
+    },
+    {
+      "rank": 2,
+      "team": "示例队B",
+      "t3_composite": 0.55,
+      "delta2": null,
+      "delta1": 0.05,
+      "wipe_rate": 0.7,
+      "force_quality": 0.6,
+      "t1_clean": 0.8,
+      "baseline": true,
+      "n_submissions": 2,
+      "last_submit": "2026-06-12 00:00:00"
+    }
+  ],
+  "final": []
+}

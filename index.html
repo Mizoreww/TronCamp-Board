@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>dev 公榜 · 力觉觉醒黑客松</title>
+<link rel="stylesheet" href="./style.css">
+<script src="./config.js"></script>
+<script src="./board.js"></script>
+</head>
+<body>
+<header>
+  <h1>「力觉觉醒」FluxVLA 力反馈 VLA 黑客松</h1>
+  <nav><a href="./index.html" class="current">dev 公榜</a> · <a href="./final.html">final 榜</a></nav>
+</header>
+<main>
+  <h2>dev 公榜</h2>
+  <p id="board-meta">数据加载中……</p>
+  <table>
+    <thead>
+      <tr>
+        <th>排名</th>
+        <th>队伍</th>
+        <th>T3 综合分</th>
+        <th>Δ₂(改进−自家T2)</th>
+        <th>Δ₁(有力−无力,科学列)</th>
+        <th>扰动擦除率</th>
+        <th>力质量分</th>
+        <th>T1 干净参考分</th>
+        <th>备注</th>
+      </tr>
+    </thead>
+    <tbody id="board-body"><tr><td colspan="9">数据加载中……</td></tr></tbody>
+  </table>
+  <p class="note">页面每 60 秒自动刷新数据;每队每日(UTC+8)至多 2 次提交;final 私榜成绩以赛末统跑为准。</p>
+</main>
+<footer>
+  <p>评分口径:综合分 = 0.45·扰动擦除率 + 0.30·力质量分 + 0.25·Δ(逐 episode 配对);力质量分仅由主办方统一重算。</p>
+</footer>
+<script>startBoard("dev");</script>
+</body>
+</html>
