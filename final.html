@@ -3,41 +3,43 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>final 榜 · 力觉觉醒黑客松</title>
+<title>FINAL · TronCamp VLA LeaderBoard</title>
 <link rel="stylesheet" href="./style.css">
 <script src="./config.js"></script>
 <script src="./board.js"></script>
 </head>
-<body>
+<body data-board="final">
 <header>
-  <h1>「力觉觉醒」FluxVLA 力反馈 VLA 黑客松</h1>
-  <nav><a href="./index.html">dev 公榜</a> · <a href="./final.html" class="current">final 榜</a></nav>
+  <h1>TronCamp <span class="accent">VLA</span> LeaderBoard</h1>
+  <div class="meta">
+    <span id="updated"></span>
+    <a href="./index.html">DEV</a>
+  </div>
 </header>
 <main>
-  <h2>final 私榜(赛末统跑)</h2>
-  <p id="final-locked" style="display:none">final 榜尚未解锁,赛末公布。</p>
-  <p id="board-meta">数据加载中……</p>
-  <table>
+  <div id="locked" class="locked" hidden>
+    <span class="big">FINAL</span>
+    赛末公布
+  </div>
+  <table id="board" hidden>
     <thead>
-      <tr>
-        <th>排名</th>
-        <th>队伍</th>
-        <th>T3 综合分</th>
-        <th>Δ₂(改进−自家T2)</th>
-        <th>Δ₁(有力−无力,科学列)</th>
-        <th>扰动擦除率</th>
-        <th>力质量分</th>
-        <th>T1 干净参考分</th>
-        <th>备注</th>
+      <tr class="grp">
+        <th rowspan="2">#</th>
+        <th rowspan="2">队伍</th>
+        <th rowspan="2">总分</th>
+        <th class="tgroup" colspan="1">T1</th>
+        <th class="tgroup" colspan="4">T2</th>
+        <th class="tgroup" colspan="2">T3</th>
+      </tr>
+      <tr class="sub">
+        <th>干净分</th>
+        <th>综合</th><th>擦除率</th><th>力质量</th><th>Δ₁</th>
+        <th>综合</th><th>Δ₂</th>
       </tr>
     </thead>
-    <tbody id="board-body"><tr><td colspan="9">数据加载中……</td></tr></tbody>
+    <tbody></tbody>
   </table>
-  <p class="note">final 榜基于私有 seed 表(每模型 100 episodes)统一重跑得出,为最终名次依据;解锁前显示"赛末公布"。</p>
+  <p id="empty" hidden>暂无成绩</p>
 </main>
-<footer>
-  <p>评分口径:综合分 = 0.45·扰动擦除率 + 0.30·力质量分 + 0.25·Δ(逐 episode 配对);力质量分仅由主办方统一重算。</p>
-</footer>
-<script>startBoard("final");</script>
 </body>
 </html>

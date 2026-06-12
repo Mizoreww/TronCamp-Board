@@ -1,21 +1,152 @@
-/* 朴素商务文档风:白底黑字、表格为主、零特效(老板风格红线)。
-   与 leaderboard/static/style.css 同源,静态站独立携带一份以便整目录部署 Pages。 */
-body {
-  font-family: "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC", SimSun, Georgia, serif;
-  color: #111;
-  background: #fff;
-  margin: 0 auto;
-  max-width: 72rem;
-  padding: 1.5rem 2rem;
-  line-height: 1.6;
+/* TronCamp VLA LeaderBoard — 极简暗色控制台风(2026-06-12 用户改版:
+   单标题、大字号、少说明文字、按总分排名、T1/T2/T3 分组列)。
+   与 leaderboard/static/style.css 分工:本文件只服务 Pages 静态站。 */
+:root {
+  --bg: #0a0c10;
+  --panel: #11151c;
+  --line: #1f2733;
+  --text: #dbe4ee;
+  --dim: #7d8ba0;
+  --accent: #38e1d4;
 }
-header { border-bottom: 2px solid #111; padding-bottom: 0.5rem; margin-bottom: 1rem; }
-h1 { font-size: 1.4rem; margin: 0 0 0.3rem 0; }
-h2 { font-size: 1.2rem; border-left: 4px solid #111; padding-left: 0.5rem; }
-nav a { color: #111; }
-nav a.current { font-weight: bold; text-decoration: none; }
-table { border-collapse: collapse; width: 100%; margin: 0.8rem 0; }
-th, td { border: 1px solid #444; padding: 0.35rem 0.6rem; text-align: left; font-size: 0.95rem; }
-thead th { background: #f2f2f2; }
-.note { font-size: 0.9rem; color: #333; }
-footer { border-top: 1px solid #999; margin-top: 1.5rem; font-size: 0.85rem; color: #333; }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 17px; }
+
+body {
+  background:
+    linear-gradient(rgba(56, 225, 212, 0.035) 1px, transparent 1px) 0 0 / 100% 56px,
+    var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+  min-height: 100vh;
+  padding: 4rem 2rem 5rem;
+}
+
+header { text-align: center; margin-bottom: 3.5rem; }
+
+h1 {
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+h1 .accent { color: var(--accent); }
+
+.meta {
+  margin-top: 1.2rem;
+  font-size: 1rem;
+  color: var(--dim);
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.meta a {
+  color: var(--accent);
+  text-decoration: none;
+  border: 1px solid var(--accent);
+  padding: 0.3rem 1.1rem;
+  border-radius: 3px;
+  letter-spacing: 0.15em;
+}
+
+.meta a:hover { background: rgba(56, 225, 212, 0.12); }
+
+main { max-width: 1180px; margin: 0 auto; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+
+thead th {
+  color: var(--dim);
+  font-weight: 600;
+  padding: 0.9rem 0.6rem;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+tr.grp th { font-size: 1.05rem; letter-spacing: 0.1em; }
+
+tr.grp th.tgroup {
+  color: var(--accent);
+  border-left: 1px solid var(--line);
+}
+
+tr.sub th { font-size: 0.95rem; font-weight: 500; }
+
+tbody td {
+  padding: 1.05rem 0.6rem;
+  text-align: center;
+  font-size: 1.1rem;
+  font-variant-numeric: tabular-nums;
+  font-family: ui-monospace, 'SF Mono', Consolas, monospace;
+  border-bottom: 1px solid var(--line);
+}
+
+tbody tr:hover { background: rgba(56, 225, 212, 0.05); }
+
+td.team {
+  font-family: inherit;
+  font-size: 1.15rem;
+  font-weight: 600;
+  text-align: left;
+  padding-left: 1.2rem;
+}
+
+td.rank { color: var(--dim); font-size: 1rem; }
+
+tbody tr:nth-child(-n+3) td.rank { color: var(--accent); font-weight: 700; }
+
+td.total {
+  color: var(--accent);
+  font-size: 1.45rem;
+  font-weight: 700;
+}
+
+td.gstart { border-left: 1px solid var(--line); }
+
+td .pos { color: var(--accent); }
+td .neg { color: #f08c8c; }
+
+.tag {
+  display: inline-block;
+  font-size: 0.8rem;
+  color: var(--dim);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 0 0.4rem;
+  margin-left: 0.4rem;
+  font-family: inherit;
+}
+
+.dimcell { color: var(--dim); }
+
+#empty, .locked {
+  text-align: center;
+  color: var(--dim);
+  padding: 5rem 0;
+  font-size: 1.4rem;
+  letter-spacing: 0.2em;
+}
+
+.locked .big {
+  display: block;
+  color: var(--accent);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.3em;
+}
+
+@media (max-width: 760px) {
+  html { font-size: 15px; }
+  body { padding: 2.5rem 0.6rem; }
+  tbody td { padding: 0.8rem 0.35rem; font-size: 0.98rem; }
+}

@@ -1,32 +1,28 @@
 {
-  "generated_at": "2026-06-12T00:00:00Z",
+  "generated_at": "2026-06-12T09:00:00Z",
   "final_unlocked": false,
   "dev": [
     {
       "rank": 1,
-      "team": "示例队A",
-      "t3_composite": 0.71,
-      "delta2": 0.06,
-      "delta1": 0.09,
-      "wipe_rate": 0.78,
-      "force_quality": 0.66,
-      "t1_clean": 0.83,
+      "team": "示例队 Alpha",
+      "total": 0.470125,
+      "t1": {"clean": 0.4095},
+      "t2": {"composite": 0.569, "wipe_rate": 0.78, "force_quality": 0.66, "delta1": 0.08},
+      "t3": {"composite": 0.6215, "wipe_rate": 0.83, "force_quality": 0.71, "delta2": 0.12, "baseline": false},
       "baseline": false,
-      "n_submissions": 4,
-      "last_submit": "2026-06-12 00:00:00"
+      "n_submissions": 3,
+      "last_submit": "2026-06-12 08:41:00"
     },
     {
       "rank": 2,
-      "team": "示例队B",
-      "t3_composite": 0.55,
-      "delta2": null,
-      "delta1": 0.05,
-      "wipe_rate": 0.7,
-      "force_quality": 0.6,
-      "t1_clean": 0.8,
+      "team": "示例队 Beta",
+      "total": 0.36985,
+      "t1": null,
+      "t2": {"composite": 0.569, "wipe_rate": 0.78, "force_quality": 0.66, "delta1": 0.08},
+      "t3": {"composite": 0.569, "wipe_rate": null, "force_quality": null, "delta2": null, "baseline": true},
       "baseline": true,
-      "n_submissions": 2,
-      "last_submit": "2026-06-12 00:00:00"
+      "n_submissions": 1,
+      "last_submit": "2026-06-12 07:02:00"
     }
   ],
   "final": []

@@ -1,71 +1,88 @@
-// 榜单渲染(原生 JS,零依赖)。列序锁定:
-// 主榜 T3 综合分 + Δ₂ | 科学列 Δ₁ | 扰动擦除率 | 力质量分 | T1 干净参考分
-"use strict";
+// TronCamp VLA LeaderBoard 表格渲染(总分排名,T1/T2/T3 分组列)。
+// 数据契约见 boardpub/publish.py;数值以 ×100 一位小数展示,Δ 带符号。
+(function () {
+  'use strict';
 
-function fmt(v) {
-  return (v === null || v === undefined) ? "—" : Number(v).toFixed(4);
-}
+  var cfg = window.BOARD_CONFIG || {};
+  var URL = cfg.BOARD_DATA_URL || './data/leaderboard.json';
+  var REFRESH = (cfg.REFRESH_SECONDS || 60) * 1000;
+  var BOARD = document.body.dataset.board || 'dev';
 
-function esc(s) {
-  var d = document.createElement("div");
-  d.textContent = String(s);
-  return d.innerHTML;
-}
-
-function renderRows(tbody, rows) {
-  if (!rows || rows.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="9">暂无成绩。</td></tr>';
-    return;
+  function pts(x) {
+    return (x === null || x === undefined) ? '—' : (x * 100).toFixed(1);
   }
-  tbody.innerHTML = rows.map(function (r) {
-    return "<tr>" +
-      "<td>" + esc(r.rank) + "</td>" +
-      "<td>" + esc(r.team) + "</td>" +
-      "<td>" + fmt(r.t3_composite) + "</td>" +
-      "<td>" + fmt(r.delta2) + "</td>" +
-      "<td>" + fmt(r.delta1) + "</td>" +
-      "<td>" + fmt(r.wipe_rate) + "</td>" +
-      "<td>" + fmt(r.force_quality) + "</td>" +
-      "<td>" + fmt(r.t1_clean) + "</td>" +
-      "<td>" + (r.baseline ? "baseline(未交 T3,按 T2 计)" : "") + "</td>" +
-      "</tr>";
-  }).join("");
-}
 
-// board: "dev" | "final"
-function loadBoard(board) {
-  var tbody = document.getElementById("board-body");
-  var meta = document.getElementById("board-meta");
-  var lockedNote = document.getElementById("final-locked");
-  fetch(window.BOARD_CONFIG.BOARD_DATA_URL, { cache: "no-store" })
-    .then(function (resp) {
-      if (!resp.ok) { throw new Error("HTTP " + resp.status); }
-      return resp.json();
-    })
-    .then(function (data) {
-      if (meta) { meta.textContent = "数据生成时间(UTC):" + data.generated_at; }
-      if (board === "final") {
-        if (!data.final_unlocked) {
-          if (lockedNote) { lockedNote.style.display = ""; }
-          if (tbody) { tbody.innerHTML = '<tr><td colspan="9">赛末公布。</td></tr>'; }
-          return;
-        }
-        if (lockedNote) { lockedNote.style.display = "none"; }
-        renderRows(tbody, data.final);
-      } else {
-        renderRows(tbody, data.dev);
-      }
-    })
-    .catch(function (err) {
-      if (tbody) {
-        tbody.innerHTML = '<tr><td colspan="9">榜单数据加载失败(' +
-          esc(err.message) + '),稍后自动重试。</td></tr>';
-      }
-    });
-}
+  function delta(x) {
+    if (x === null || x === undefined) return '<span class="dimcell">—</span>';
+    var cls = x >= 0 ? 'pos' : 'neg';
+    return '<span class="' + cls + '">' + (x >= 0 ? '+' : '') + (x * 100).toFixed(1) + '</span>';
+  }
 
-function startBoard(board) {
-  loadBoard(board);
-  setInterval(function () { loadBoard(board); },
-    (window.BOARD_CONFIG.REFRESH_SECONDS || 60) * 1000);
-}
+  function esc(s) {
+    var d = document.createElement('div');
+    d.textContent = String(s);
+    return d.innerHTML;
+  }
+
+  function rowHtml(r) {
+    var t1 = r.t1 || {};
+    var t2 = r.t2 || {};
+    var t3 = r.t3 || {};
+    var t3main = (t3.composite === null || t3.composite === undefined)
+      ? '<span class="dimcell">—</span>'
+      : (t3.baseline
+        ? '<span class="dimcell">' + pts(t3.composite) + '</span><span class="tag">保底</span>'
+        : pts(t3.composite));
+    return '<tr>' +
+      '<td class="rank">' + r.rank + '</td>' +
+      '<td class="team">' + esc(r.team) + '</td>' +
+      '<td class="total">' + pts(r.total) + '</td>' +
+      '<td class="gstart">' + pts(t1.clean) + '</td>' +
+      '<td class="gstart">' + pts(t2.composite) + '</td>' +
+      '<td>' + pts(t2.wipe_rate) + '</td>' +
+      '<td>' + pts(t2.force_quality) + '</td>' +
+      '<td>' + delta(t2.delta1) + '</td>' +
+      '<td class="gstart">' + t3main + '</td>' +
+      '<td>' + delta(t3.delta2) + '</td>' +
+      '</tr>';
+  }
+
+  function render(data) {
+    var updated = document.getElementById('updated');
+    if (updated) updated.textContent = '更新于 ' + (data.generated_at || '—');
+
+    var locked = document.getElementById('locked');
+    var table = document.getElementById('board');
+    var empty = document.getElementById('empty');
+
+    if (BOARD === 'final' && !data.final_unlocked) {
+      if (locked) locked.hidden = false;
+      if (table) table.hidden = true;
+      if (empty) empty.hidden = true;
+      return;
+    }
+    if (locked) locked.hidden = true;
+
+    var rows = data[BOARD] || [];
+    if (!rows.length) {
+      if (table) table.hidden = true;
+      if (empty) empty.hidden = false;
+      return;
+    }
+    table.hidden = false;
+    if (empty) empty.hidden = true;
+    table.querySelector('tbody').innerHTML = rows.map(rowHtml).join('');
+  }
+
+  function load() {
+    fetch(URL + '?t=' + Date.now())
+      .then(function (r) { return r.json(); })
+      .then(render)
+      .catch(function () { /* 静态站:加载失败保持现状,下轮重试 */ });
+  }
+
+  window.addEventListener('DOMContentLoaded', function () {
+    load();
+    setInterval(load, REFRESH);
+  });
+})();
