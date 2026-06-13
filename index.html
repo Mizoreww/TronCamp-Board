@@ -3,40 +3,295 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TronCamp VLA LeaderBoard</title>
+<title>TronCamp VLA Hackathon · 力反馈 VLA 线上黑客松</title>
+<meta name="description" content="基于 FluxVLA 的力反馈 VLA 线上黑客松:给视觉主导的 VLA 接上力觉,在接触富集的 Wipe 擦拭任务上证明并放大力的价值。">
 <link rel="stylesheet" href="./style.css">
 <script src="./config.js"></script>
-<script src="./board.js"></script>
+<script src="./board.js" defer></script>
 </head>
 <body data-board="dev">
-<header>
-  <h1>TronCamp <span class="accent">VLA</span> LeaderBoard</h1>
-  <div class="meta">
-    <span id="updated">加载中…</span>
-    <span id="countdown"></span>
-    <a href="./final.html">FINAL</a>
+
+<nav class="nav">
+  <div class="wrap">
+    <span class="brand">TronCamp <span class="accent">VLA</span></span>
+    <span class="nav-links">
+      <a href="#overview">概览</a>
+      <a href="#tasks">赛题</a>
+      <a href="#rules">规则</a>
+      <a href="#scoring">评分</a>
+      <a href="#submit">提交</a>
+      <a href="#board">排行榜</a>
+      <a href="https://github.com/Mizoreww/TronCamp" class="cta" target="_blank" rel="noopener">Starter ↗</a>
+    </span>
+  </div>
+</nav>
+
+<!-- ───────── Hero ───────── -->
+<header class="hero">
+  <div class="wrap">
+    <span class="tag">Force-Feedback VLA · 线上黑客松</span>
+    <h1>给 VLA 接上<span class="accent">力觉</span>,<br>在接触中证明它的价值</h1>
+    <p class="lead">
+      当前所有主流 VLA 都是"视觉动物"。本赛事基于 LimX Dynamics 开源的
+      <a href="https://github.com/limxdynamics/FluxVLA" target="_blank" rel="noopener">FluxVLA</a>
+      平台,在 robosuite <b>Wipe 恒压擦拭</b>任务上,让你给视觉主导的 π0.5 接上六维力/力矩,
+      并用严格的同种子配对消融证明、放大"力"的因果价值。
+    </p>
+    <div class="chips">
+      <span class="chip"><b>10</b> 天纯线上</span>
+      <span class="chip"><b>2×A100-80G</b> / 队</span>
+      <span class="chip">单模型 <b>π0.5</b> · LoRA</span>
+      <span class="chip">单任务 <b>Wipe</b></span>
+      <span class="chip">3 道必做 · 重心 <b>T3</b></span>
+      <span class="chip">自动评测 · 公私双榜</span>
+    </div>
+    <div class="hero-actions">
+      <a href="#tasks" class="btn primary">查看赛题</a>
+      <a href="#submit" class="btn">如何提交</a>
+      <a href="https://github.com/Mizoreww/TronCamp/blob/main/docs/hackathon/STUDENT_HANDBOOK.md" class="btn" target="_blank" rel="noopener">学生手册 ↗</a>
+    </div>
+    <div class="countdown-box">
+      <span class="label">距提交截止</span>
+      <span id="countdown">—</span>
+    </div>
   </div>
 </header>
-<main>
-  <table id="board" hidden>
-    <thead>
-      <tr class="grp">
-        <th rowspan="2">#</th>
-        <th rowspan="2">队伍</th>
-        <th rowspan="2">总分</th>
-        <th class="tgroup" colspan="1">T1</th>
-        <th class="tgroup" colspan="4">T2</th>
-        <th class="tgroup" colspan="2">T3</th>
-      </tr>
-      <tr class="sub">
-        <th>干净分</th>
-        <th>综合</th><th>擦除率</th><th>力质量</th><th>Δ₁</th>
-        <th>综合</th><th>Δ₂</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-  <p id="empty" hidden>暂无成绩</p>
-</main>
+
+<!-- ───────── 01 概览 ───────── -->
+<section id="overview">
+  <div class="wrap">
+    <div class="overview">
+      <div>
+        <span class="sec-num">01 / 概览</span>
+        <h2 style="margin-bottom:1rem">力觉,是视觉看不见的那一半世界</h2>
+        <p>
+          robosuite 的 <strong>Wipe</strong> 是天然的力觉密集任务:机械臂要以受控接触力沿桌面
+          擦除污渍——<strong>压力不足擦不掉、压力过大触发超力惩罚</strong>。机械爪腕部内置六维力/力矩
+          传感器,整场比赛的力信号即由此而来。
+        </p>
+        <p>
+          全卷统一用 <strong>π0.5</strong>(~3B,FluxVLA 旗舰)、LoRA 微调、官方固定训练 seed——
+          榜单上比的是<strong>力觉算法</strong>,不是谁的模型大。三道递进必做题,重心在 T3:
+          T1/T2 是保底与科学对照,<strong>T3 力觉改进竞技场决定主榜名次</strong>。
+        </p>
+        <p style="color:var(--dim);font-size:0.9rem">
+          T2/T3 统一在"桌高 ±1cm 内随机偏移 + 视觉遮挡"扰动条件下计分——偏移视觉几乎不可察觉,
+          纯视觉策略会戳桌/悬空,力反馈的因果作用直接决定成绩。
+        </p>
+      </div>
+      <figure class="fig">
+        <img src="./assets/wipe.jpg" alt="robosuite Wipe 任务官方渲染序列">
+        <figcaption>图 · robosuite Wipe(恒压擦拭)——四帧官方环境渲染。图源:robosuite 文档(MIT)。全卷计分只用这一个任务。</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── 02 赛题 ───────── -->
+<section id="tasks">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">02 / 赛题</span>
+      <h2>三道递进必做题</h2>
+      <p>评测条件两级:T1 干净条件纯通关;T2/T3 统一扰动条件(桌高 ±1cm 偏移 + 视觉遮挡,固定 seed 表全场一致)。所有量化指标由评测集群自动计算,逐 episode 配对。</p>
+    </div>
+    <div class="cards tasks">
+      <div class="card task-card">
+        <span class="tno">T1</span><span class="weight">20%</span>
+        <h3>管线通关</h3>
+        <div class="role">入门 · 不含力 · 纯通关</div>
+        <ul>
+          <li>π0.5 LoRA + 官方<b>无力版</b> config,跑通"数据→训练→上榜"</li>
+          <li>干净条件擦除率达基线参考区间即满分</li>
+          <li>产物即 T2 的无力基线,每队省一次训练</li>
+        </ul>
+      </div>
+      <div class="card task-card">
+        <span class="tno">T2</span><span class="weight">30%</span>
+        <h3>力觉接入 + 配对消融</h3>
+        <div class="role">进阶 · 科学性保底</div>
+        <ul>
+          <li>官方<b>有力版</b> config(力注入已配置好),与 T1 同 seed/同步数</li>
+          <li>唯一变量 = state 是否含力列</li>
+          <li>系统自动算<b>力觉增益 Δ₁ = 有力 − 无力</b>,带 95% CI</li>
+        </ul>
+      </div>
+      <div class="card task-card focus">
+        <span class="tno">T3</span><span class="weight">35%</span>
+        <h3>力觉改进竞技场</h3>
+        <div class="role">全卷重心 · 主榜</div>
+        <ul>
+          <li>在 T2 基线上任选 ≥1 改进点(15 项四级菜单)</li>
+          <li><b>用你 fork 的代码评测</b>:自定义模块/表征/注入全生效</li>
+          <li>主榜综合分 + <b>改进增益 Δ₂ = T3 − 自家 T2</b></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sec-head" style="margin-top:2.6rem;margin-bottom:1.2rem">
+      <h2 style="font-size:1.3rem">T3 改进点菜单 · 15 项 · 四级</h2>
+      <p>量化效果上榜不分级;新颖性分按级封顶。A/B 级 0 行模型代码、人人能上场;C/D 级决定头部名次。</p>
+    </div>
+    <table class="dtable">
+      <thead><tr><th style="width:11rem">级别(新颖性封顶)</th><th>改进点</th><th style="width:11rem">代码量 / run</th></tr></thead>
+      <tbody>
+        <tr><td class="lvl">A 数据级 · 50%</td><td>A1 采数策略(力 setpoint / 桌高随机化 / 演示多样性) · A2 力觉数据增广</td><td>0 行 · 1 run/变体</td></tr>
+        <tr><td class="lvl">B 表征级 · 60%</td><td>B1 滑动窗力历史 · B2 频域/统计特征 · B3 压缩归一化方式 · B4 离散 bins 分辨率</td><td>0 行 · 1 run/变体</td></tr>
+        <tr><td class="lvl">C 注入通道级 · 100%</td><td>C1 连续 force token 注入 action expert · C2 离散+连续双通道 · C3 注入位点 prefix vs suffix</td><td>30–50 行 · 1–2 run</td></tr>
+        <tr><td class="lvl">D 架构/策略 · 100%/70%</td><td>D1 辅助力预测头 · D2 接触相位门控 · D3 力蒸馏(推理免传感器) · D4 小 MoE 融合 · D5 视觉退化课程 · D6 SARM 阶段加权</td><td>50–100+ 行 · 1–3 run</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ───────── 03 规则 ───────── -->
+<section id="rules">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">03 / 比赛规则</span>
+      <h2>赛制与红线</h2>
+    </div>
+    <div class="cards" style="grid-template-columns:repeat(2,1fr)">
+      <div class="card">
+        <h3>赛制</h3>
+        <p>10 天纯线上;每队 2×A100-80G,官方 LoRA 路径,必做 3 run 起(T1 无力 + T2 有力 + T3 ≥1 改进)。全卷单模型 π0.5、单任务 Wipe、单仿真栈,版本锁定 FluxVLA 指定 commit,赛中不跟上游。</p>
+      </div>
+      <div class="card">
+        <h3>评测条件</h3>
+        <p>T1 干净条件(无偏移无遮挡);T2/T3 统一扰动条件(桌高 ±1cm 随机偏移 + 视觉遮挡)。每模型 dev 50 / final 100 个独立场景 seed episodes,全模型逐 episode 配对。dev seed 表(含 corrupter salt)随 starter 公开——本地分 = dev 榜分。</p>
+      </div>
+      <div class="card">
+        <h3>提交限额</h3>
+        <p>每队每日(UTC+8)至多 2 次提交,超额拒绝。截止时刻提交通道关闭,<b>当时的 dev 榜即最终成绩</b>(榜单页有倒计时)。</p>
+      </div>
+      <div class="card">
+        <h3>红线(违反量化分作废)</h3>
+        <p>① 官方训练 seed、<code>use_contact_obs</code>、两套 config 的非力列字段不得改(机械 diff 项);② 推理期只用白名单观测,特权量只准做训练标签;③ 自定义预处理只许写在 <code>preprocess_obs()</code> 内;④ T2 配对纪律:同 seed/同数据/同步数,diff 仅限力列;⑤ 负结果如实报告照样计分,造假单题零分起。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── 04 评分 ───────── -->
+<section id="scoring">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">04 / 评分标准</span>
+      <h2>不只看成功率</h2>
+      <p>SR 是基础层,但单看 SR 测不出"力"的价值——一个"成功但暴力"的策略(超压硬怼也能擦完)SR 很好看、力行为很糟糕。所以采用三层指标,主指标尽量用连续量。</p>
+    </div>
+    <div class="formula">
+      单题量化分 = <span class="accent">0.45</span>·擦除率 + <span class="accent">0.30</span>·力质量分 + <span class="accent">0.25</span>·Δ
+      <span class="dim">  （T2 用 Δ₁,T3 用 Δ₂;Δ 为逐 episode 配对差，scorer 强制输出 95% CI）</span>
+    </div>
+    <div class="formula">
+      榜单总分 = <span class="accent">0.20</span>·T1 + <span class="accent">0.30</span>·T2 + <span class="accent">0.35</span>·T3
+      <span class="dim">  ＋ 跨题统评 15%（开源规范与文档质量，人评）</span>
+    </div>
+    <div class="cards layers" style="margin-top:1.6rem">
+      <div class="card layer-card">
+        <div class="ln">① 任务层</div>
+        <h3>擦除率 / SR</h3>
+        <p>任务做没做成。T1 用它做通关判定;T2/T3 中优先用连续完成度(50 集二值 SR 噪声约 ±10pp,连续指标统计效力高得多)。</p>
+      </div>
+      <div class="card layer-card">
+        <div class="ln">② 力行为层</div>
+        <h3>力质量分</h3>
+        <p>做成的方式对不对——恒压贴合还是暴力硬怼。接触力在专家分布目标带(P10–P90)内的时间占比、超压占比、峰值惩罚、力方差。只由主办方 scorer 从落盘力轨迹重算。</p>
+      </div>
+      <div class="card layer-card">
+        <div class="ln">③ 鲁棒层</div>
+        <h3>力觉增益 Δ</h3>
+        <p>力是否真正起了因果作用。Δ₁ = 有力 − 无力配对差,Δ₂ = T3 − 自家 T2。±1cm 偏移视觉不可察觉,纯视觉策略读不到桌高变化,Δ 列直接挂在排行榜上。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── 05 提交 ───────── -->
+<section id="submit">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">05 / 提交方式</span>
+      <h2>自动评测,选手自报数字无效</h2>
+      <p>fork 官方题目库 → 训练 → 提交 checkpoint → 评测集群自动跑分上榜。本地用同一套 harness 与 dev 种子,跑分与 dev 榜一致。</p>
+    </div>
+    <div class="steps">
+      <div class="step"><span class="sn"></span><div><h4>Fork 官方 Starter</h4><p>脚手架、提交模板、本地评测命令内置;以锁定 commit 为 base。</p></div></div>
+      <div class="step"><span class="sn"></span><div><h4>训练并核验</h4><p>用官方 LoRA config 训练;保留可在线核验的 wandb run。</p></div></div>
+      <div class="step"><span class="sn"></span><div><h4>提交 checkpoint</h4><p>CLI <code>scripts/submit.py</code> 或评测站网页上传入口(自动算 SHA256 回填);每日 ≤2 次。</p></div></div>
+      <div class="step"><span class="sn"></span><div><h4>ZMQ 隔离评测</h4><p>选手 policy 进程(GPU)与主办方仿真 harness(CPU、私有种子)进程隔离,选手代码碰不到仿真内部状态。<b>T3 用你 fork 的代码起服务</b>,自定义模块全生效。</p></div></div>
+      <div class="step"><span class="sn"></span><div><h4>自动算分上榜</h4><p>统一 <code>score_force.py</code> 算三层指标,逐 episode 日志落盘;Dev 榜实时,Final 榜截止冻结。</p></div></div>
+    </div>
+    <div class="code"><span class="c"># 命令行提交(T2 示例)</span>
+sha256sum &lt;checkpoint&gt;
+python scripts/submit.py <span class="a">--server</span> http://&lt;评测服务器&gt;:8080 <span class="a">--token</span> &lt;队伍token&gt; \
+  <span class="a">--track</span> T2 <span class="a">--ckpt-url</span> &lt;URL或网页上传的file_url&gt; <span class="a">--ckpt-sha256</span> &lt;sha&gt; \
+  <span class="a">--git-url</span> &lt;你的fork&gt; <span class="a">--git-tag</span> &lt;tag&gt;</div>
+    <p style="margin-top:1.2rem;color:var(--dim);font-size:0.9rem">
+      详见 <a href="https://github.com/Mizoreww/TronCamp/blob/main/docs/hackathon/STUDENT_HANDBOOK.md" target="_blank" rel="noopener">学生手册</a>
+      与 <a href="https://github.com/Mizoreww/TronCamp/blob/main/docs/hackathon/t3_menu_starters.md" target="_blank" rel="noopener">T3 改进点对照表</a>。
+    </p>
+  </div>
+</section>
+
+<!-- ───────── 06 排行榜 ───────── -->
+<section id="board">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">06 / 排行榜</span>
+      <h2>实时榜单(Dev)</h2>
+    </div>
+    <div class="board-head">
+      <span class="upd" id="updated">加载中…</span>
+      <a class="to-final btn" href="./final.html">FINAL 榜 ↗</a>
+    </div>
+    <table id="board" class="board" hidden>
+      <thead>
+        <tr class="grp">
+          <th rowspan="2">#</th><th rowspan="2">队伍</th><th rowspan="2">总分</th>
+          <th class="tgroup">T1</th>
+          <th class="tgroup" colspan="4">T2</th>
+          <th class="tgroup" colspan="2">T3</th>
+        </tr>
+        <tr class="sub">
+          <th>干净分</th>
+          <th>综合</th><th>擦除率</th><th>力质量</th><th>Δ₁</th>
+          <th>综合</th><th>Δ₂</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <p id="empty" hidden>暂无成绩</p>
+  </div>
+</section>
+
+<!-- ───────── Footer ───────── -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <h5>赛事</h5>
+        <a href="#tasks">赛题</a>
+        <a href="#rules">比赛规则</a>
+        <a href="#scoring">评分标准</a>
+        <a href="#submit">提交方式</a>
+      </div>
+      <div class="foot-col">
+        <h5>参赛资源</h5>
+        <a href="https://github.com/Mizoreww/TronCamp" target="_blank" rel="noopener">官方 Starter 仓库 ↗</a>
+        <a href="https://github.com/Mizoreww/TronCamp/blob/main/docs/hackathon/STUDENT_HANDBOOK.md" target="_blank" rel="noopener">学生手册 ↗</a>
+        <a href="https://github.com/Mizoreww/TronCamp/blob/main/docs/hackathon/t3_menu_starters.md" target="_blank" rel="noopener">T3 改进点菜单 ↗</a>
+      </div>
+      <div class="foot-col">
+        <h5>平台</h5>
+        <a href="https://github.com/limxdynamics/FluxVLA" target="_blank" rel="noopener">FluxVLA(LimX Dynamics)↗</a>
+        <a href="https://fluxvla.limxdynamics.com" target="_blank" rel="noopener">FluxVLA 官方文档 ↗</a>
+      </div>
+    </div>
+    <p class="foot-note">TronCamp VLA Hackathon · 基于 FluxVLA 开源平台 · 全卷成绩口径为 LoRA + Wipe。本站为赛事官网,量化成绩由评测集群自动产出。</p>
+  </div>
+</footer>
+
 </body>
 </html>

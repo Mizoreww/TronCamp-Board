@@ -3,44 +3,62 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FINAL · TronCamp VLA LeaderBoard</title>
+<title>FINAL · TronCamp VLA Hackathon</title>
 <link rel="stylesheet" href="./style.css">
 <script src="./config.js"></script>
-<script src="./board.js"></script>
+<script src="./board.js" defer></script>
 </head>
 <body data-board="final">
-<header>
-  <h1>TronCamp <span class="accent">VLA</span> LeaderBoard</h1>
-  <div class="meta">
-    <span id="updated"></span>
-    <span id="countdown"></span>
-    <a href="./index.html">DEV</a>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="./index.html" class="brand" style="text-decoration:none">TronCamp <span class="accent">VLA</span></a>
+    <span class="nav-links">
+      <a href="./index.html#overview">概览</a>
+      <a href="./index.html#tasks">赛题</a>
+      <a href="./index.html#rules">规则</a>
+      <a href="./index.html#submit">提交</a>
+      <a href="./index.html#board">DEV 榜</a>
+      <a href="https://github.com/Mizoreww/TronCamp" class="cta" target="_blank" rel="noopener">Starter ↗</a>
+    </span>
   </div>
-</header>
-<main>
-  <div id="locked" class="locked" hidden>
-    <span class="big">FINAL</span>
-    赛末公布
+</nav>
+
+<section style="border-top:none;padding-top:3.5rem">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">FINAL / 最终榜</span>
+      <h2>Final 排行榜</h2>
+      <p>截止后由当时的 dev 榜冻结为最终成绩。截止前显示倒计时。</p>
+    </div>
+    <div class="board-head">
+      <span class="upd" id="updated"></span>
+      <span id="countdown" style="font-size:1.05rem"></span>
+      <a class="to-final btn" href="./index.html#board">← 返回 DEV 榜</a>
+    </div>
+    <div id="locked" class="locked" hidden>
+      <span class="big">FINAL</span>
+      赛末公布
+    </div>
+    <table id="board" class="board" hidden>
+      <thead>
+        <tr class="grp">
+          <th rowspan="2">#</th><th rowspan="2">队伍</th><th rowspan="2">总分</th>
+          <th class="tgroup">T1</th>
+          <th class="tgroup" colspan="4">T2</th>
+          <th class="tgroup" colspan="2">T3</th>
+        </tr>
+        <tr class="sub">
+          <th>干净分</th>
+          <th>综合</th><th>擦除率</th><th>力质量</th><th>Δ₁</th>
+          <th>综合</th><th>Δ₂</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <p id="empty" hidden>暂无成绩</p>
   </div>
-  <table id="board" hidden>
-    <thead>
-      <tr class="grp">
-        <th rowspan="2">#</th>
-        <th rowspan="2">队伍</th>
-        <th rowspan="2">总分</th>
-        <th class="tgroup" colspan="1">T1</th>
-        <th class="tgroup" colspan="4">T2</th>
-        <th class="tgroup" colspan="2">T3</th>
-      </tr>
-      <tr class="sub">
-        <th>干净分</th>
-        <th>综合</th><th>擦除率</th><th>力质量</th><th>Δ₁</th>
-        <th>综合</th><th>Δ₂</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-  <p id="empty" hidden>暂无成绩</p>
-</main>
+</section>
+
 </body>
 </html>
