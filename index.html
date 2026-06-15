@@ -102,14 +102,14 @@
     <div class="sec-head">
       <span class="sec-num">02 / 赛题</span>
       <h2>三道递进必做题</h2>
-      <p>每队提交一个模型,在唯一评测环境(桌高 ±3cm 随机偏移、固定 seed 表全场一致)评测一次;T1 / T2 / T3 由这一条成绩导出、顺序解锁。T1 / T2 达标即满分,主榜只排 T3 绝对分。</p>
+      <p>每队提交一个模型(<b>你的代码 + 权重</b>),在唯一评测环境(桌高 ±3cm 随机偏移、固定 seed 表全场一致)用<b>你的代码</b>评测一次;T1 / T2 / T3 由这一条成绩导出、顺序解锁。三档都跑你的代码,差别只在判定口径:T1 / T2 达标即满分,主榜只排 T3 绝对分。</p>
     </div>
     <table class="dtable">
       <thead><tr><th style="width:5rem">档</th><th style="width:8rem">名称</th><th>内容</th><th style="width:14rem">计分</th></tr></thead>
       <tbody>
         <tr><td class="lvl">T1</td><td>管线通关</td><td>从专家轨迹 bag 自建数据与训练,跑通"数据 → 训练 → 上榜";数据处理与 I/O 完全放开。</td><td>成功率 SR ≥ 0.25 → 达标满分</td></tr>
         <tr><td class="lvl">T2</td><td>力觉接入</td><td>接入六维力/力矩,在 ±3cm 偏移下稳擦;可用脚手架的力觉接入示例。</td><td>SR ≥ 0.55 → 达标满分(须先过 T1)</td></tr>
-        <tr><td class="lvl">T3</td><td>力觉改进<br><span class="th-sub">全卷重心 · 主榜</span></td><td>任意改进力觉算法,用<b>你上传的代码</b>评测(自定义模块 / 表征 / 注入全生效)。</td><td>T3 = 0.7·擦除率 + 0.3·力质量分,降序排名(须先过 T2)</td></tr>
+        <tr><td class="lvl">T3</td><td>力觉改进<br><span class="th-sub">全卷重心 · 主榜</span></td><td>任意改进力觉算法(数据 / 表征 / 力注入 / 架构),在 ±3cm 下冲最高分;C / D 级改进在你的代码里生效。</td><td>T3 = 0.7·擦除率 + 0.3·力质量分,降序排名(须先过 T2)</td></tr>
       </tbody>
     </table>
 
@@ -141,7 +141,7 @@
         <tr><td class="lvl" style="width:7rem">赛制</td><td>10 天纯线上,每队 2×A100-80G。开放挑战:主办方下发专家轨迹 bag + 评测 harness + 可选参考脚手架(含力觉接入与 ForceVLA 连续力 token 示例),数据 / 模型 / 训练全自由。单模型 π0.5、单任务 Wipe、单仿真栈,版本锁定 FluxVLA 指定 commit,赛中不跟上游。</td></tr>
         <tr><td class="lvl">评测条件</td><td>唯一环境:桌高 ±3cm 随机偏移,固定 seed 表全场一致。每模型 dev 50 / final 100 个独立 seed episode 跑一次。dev seed 表(含 corrupter salt)随脚手架公开——<b>本地评测分 = dev 榜分</b>,可本地自测。</td></tr>
         <tr><td class="lvl">提交</td><td>每队每日(UTC+8)≤ 2 次,超额拒绝。截止时刻提交通道关闭,<b>当时的 dev 榜即最终成绩</b>(榜单页有倒计时)。</td></tr>
-        <tr><td class="lvl">红线</td><td>① T1 / T2 数据处理与 I/O 完全放开,不查代码、只看评测达标;② T3 用你上传的代码起服务,自定义模块全生效;③ 推理期只用白名单观测,仿真内部状态 / 私有 seed 碰不到(ZMQ 进程隔离 + 沙箱);④ Final 名次用私有 seed 表统跑,防 dev 过拟合;⑤ 伪造评测或绕过隔离,单题零分起。</td></tr>
+        <tr><td class="lvl">红线</td><td>① <b>单次提交、用你上传的代码评测一次,T1 / T2 / T3 同出这一条成绩</b>;数据处理 / IO / 力注入 / 模型 / 训练方法完全放开,主办方不审查代码、只看统一评测的达标与分数;② 自定义模块 / 表征 / 注入在你的代码里全生效(T3 的 C / D 级改进据此计分);③ 推理期只用白名单观测,仿真内部状态 / 私有 seed 碰不到(ZMQ 进程隔离 + 沙箱);④ Final 名次用私有 seed 表统跑,防 dev 过拟合;⑤ 伪造评测或绕过隔离,单题零分起。</td></tr>
       </tbody>
     </table>
   </div>
