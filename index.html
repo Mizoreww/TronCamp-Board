@@ -63,7 +63,7 @@
       </p>
       <p>
         全卷统一用 <strong>π0.5</strong>(~3B,FluxVLA 旗舰)、单任务 Wipe、单仿真栈,比的是<strong>力觉算法</strong>而非模型大小。
-        开放挑战:主办方只下发专家轨迹 bag 与评测,数据处理 / 模型 / 训练全自己来。
+        开放挑战:主办方下发专家轨迹 bag / 数据集与评测;<strong>数据由主办方给定、不可重新采集</strong>,数据处理 / 模型 / 训练自己来。
       </p>
       <p>
         唯一评测环境:每 episode 桌高在 <strong>±3cm</strong> 内随机偏移。提交一个模型、评测一次,按成功率与力质量导出
@@ -107,7 +107,7 @@
     <table class="dtable">
       <thead><tr><th style="width:5rem">档</th><th style="width:8rem">名称</th><th>内容</th><th style="width:14rem">计分</th></tr></thead>
       <tbody>
-        <tr><td class="lvl">T1</td><td>管线通关</td><td>从专家轨迹 bag 自建数据与训练,跑通"数据 → 训练 → 上榜";数据处理与 I/O 完全放开。</td><td>成功率 SR ≥ 0.25 → 达标满分</td></tr>
+        <tr><td class="lvl">T1</td><td>管线通关</td><td>用<b>给定</b>的专家轨迹 bag / 数据集自建数据处理与训练管线,跑通"数据 → 训练 → 上榜";处理与 I/O 完全放开(数据不可重新采集)。</td><td>成功率 SR ≥ 0.25 → 达标满分</td></tr>
         <tr><td class="lvl">T2</td><td>力觉接入</td><td>接入六维力/力矩,在 ±3cm 偏移下稳擦;可用脚手架的力觉接入示例。</td><td>SR ≥ 0.55 → 达标满分(须先过 T1)</td></tr>
         <tr><td class="lvl">T3</td><td>力觉改进<br><span class="th-sub">全卷重心 · 主榜</span></td><td>任意改进力觉算法(数据 / 表征 / 力注入 / 架构),在 ±3cm 下冲最高分;C / D 级改进在你的代码里生效。</td><td>T3 = 0.7·擦除率 + 0.3·力质量分,降序排名(须先过 T2)</td></tr>
       </tbody>
@@ -115,15 +115,15 @@
 
     <div class="sec-head" style="margin-top:2.4rem;margin-bottom:1rem">
       <h2 style="font-size:1.3rem">T3 改进方向(仅供参考)</h2>
-      <p>以下只是一些可尝试的方向,非强制、不分级、不单独计分 —— 主榜只看 T3 绝对分。按"改什么 / 大致代码量"分四类:A / B 类 0 行模型代码即可尝试,C / D 类需改代码。</p>
+      <p>以下只是一些可尝试的方向,非强制、不分级、不单独计分 —— 主榜只看 T3 绝对分。<b>数据由主办方给定、不可重新采集</b>,改进只在给定数据与你的代码上做。</p>
     </div>
     <table class="dtable">
-      <thead><tr><th style="width:9rem">类别</th><th>可尝试方向</th><th style="width:11rem">代码量 / run</th></tr></thead>
+      <thead><tr><th style="width:10rem">类别</th><th>可尝试方向</th></tr></thead>
       <tbody>
-        <tr><td class="lvl">A 数据级</td><td>A1 采数策略(力 setpoint / 桌高随机化 / 演示多样性) · A2 力觉数据增广</td><td>0 行 · 1 run/变体</td></tr>
-        <tr><td class="lvl">B 表征级</td><td>B1 滑动窗力历史 · B2 频域 / 统计特征 · B3 压缩归一化方式 · B4 离散 bins 分辨率</td><td>0 行 · 1 run/变体</td></tr>
-        <tr><td class="lvl">C 注入通道级</td><td>C1 连续 force token 注入 action expert · C2 离散 + 连续双通道 · C3 注入位点 prefix vs suffix</td><td>30–50 行 · 1–2 run</td></tr>
-        <tr><td class="lvl">D 架构 / 策略</td><td>D1 辅助力预测头 · D2 接触相位门控 · D3 力蒸馏(推理免传感器) · D4 小 MoE 融合 · D5 视觉退化课程 · D6 SARM 阶段加权</td><td>50–100+ 行 · 1–3 run</td></tr>
+        <tr><td class="lvl">A 数据级</td><td>在<b>给定数据</b>上做力觉数据增广 / 过滤 / 重加权(不可重新采集)</td></tr>
+        <tr><td class="lvl">B 表征级</td><td>B1 滑动窗力历史 · B2 频域 / 统计特征 · B3 压缩归一化方式 · B4 离散 bins 分辨率</td></tr>
+        <tr><td class="lvl">C 注入通道级</td><td>C1 连续 force token 注入 action expert · C2 离散 + 连续双通道 · C3 注入位点 prefix vs suffix</td></tr>
+        <tr><td class="lvl">D 架构 / 策略</td><td>D1 辅助力预测头 · D2 接触相位门控 · D3 力蒸馏(推理免传感器) · D4 小 MoE 融合 · D5 视觉退化课程 · D6 SARM 阶段加权</td></tr>
       </tbody>
     </table>
   </div>
@@ -138,7 +138,7 @@
     </div>
     <table class="dtable">
       <tbody>
-        <tr><td class="lvl" style="width:7rem">赛制</td><td>10 天纯线上,每队 2×A100-80G。开放挑战:主办方下发专家轨迹 bag + 评测 harness + 可选脚手架(含力觉接入起步示例),数据 / 模型 / 训练全自由。单模型 π0.5、单任务 Wipe、单仿真栈,版本锁定 FluxVLA 指定 commit,赛中不跟上游。</td></tr>
+        <tr><td class="lvl" style="width:7rem">赛制</td><td>10 天纯线上,每队 2×A100-80G。开放挑战:主办方下发专家轨迹 bag + 评测 harness + 可选脚手架(含力觉接入起步示例)。<b>数据由主办方给定、不可重新采集</b>;在给定数据上的处理 / 模型 / 训练全自由。单模型 π0.5、单任务 Wipe、单仿真栈,版本锁定 FluxVLA 指定 commit,赛中不跟上游。</td></tr>
         <tr><td class="lvl">评测条件</td><td>唯一环境:桌高 ±3cm 随机偏移,固定 seed 表全场一致。每模型 dev 50 / final 100 个独立 seed episode 跑一次。dev seed 表(含 corrupter salt)随脚手架公开——<b>本地评测分 = dev 榜分</b>,可本地自测。</td></tr>
         <tr><td class="lvl">提交</td><td>每队每日(UTC+8)≤ 2 次,超额拒绝。截止时刻提交通道关闭,<b>当时的 dev 榜即最终成绩</b>(榜单页有倒计时)。</td></tr>
         <tr><td class="lvl">红线</td><td>① <b>单次提交、用你上传的代码评测一次,T1 / T2 / T3 同出这一条成绩</b>;数据处理 / IO / 力注入 / 模型 / 训练方法完全放开,主办方不审查代码、只看统一评测的达标与分数;② 自定义模块 / 表征 / 注入在你的代码里全生效(T3 的 C / D 级改进据此计分);③ 推理期只用白名单观测,仿真内部状态 / 私有 seed 碰不到(ZMQ 进程隔离 + 沙箱);④ Final 名次用私有 seed 表统跑,防 dev 过拟合;⑤ 伪造评测或绕过隔离,单题零分起。</td></tr>
@@ -193,7 +193,7 @@
       <span class="submit-cta-note">浏览器选文件直传权重 / 代码包,后端自动算 SHA256,无需装环境。</span>
     </div>
     <p style="margin-top:1.4rem;color:var(--muted);font-size:0.95rem">
-      流程:① 从专家轨迹 bag 自建数据与训练(可用脚手架);② 改过的代码(自定义 I/O、力注入、模型结构)打包 <code>.zip</code> / <code>.tar.gz</code>,权重单独导出;③ 网页或 CLI 上传代码包 + 权重(两者留空则跑官方力觉基线保底);④ 评测机隔离起服务、<code>score_force.py</code> 跑分 → Dev 榜实时、Final 截止冻结。
+      流程:① 用给定数据(专家轨迹 bag / 数据集)自建处理与训练,不可重新采集(可用脚手架);② 改过的代码(自定义 I/O、力注入、模型结构)打包 <code>.zip</code> / <code>.tar.gz</code>,权重单独导出;③ 网页或 CLI 上传代码包 + 权重(两者留空则跑官方力觉基线保底);④ 评测机隔离起服务、<code>score_force.py</code> 跑分 → Dev 榜实时、Final 截止冻结。
     </p>
     <p style="margin-top:1.4rem;color:var(--muted);font-size:0.92rem">也可<b style="color:var(--text)">命令行 / 自动化提交</b>(大文件、批量更稳):</p>
     <div class="code"><span class="c"># 上传代码包 + 权重,自动算 SHA256</span>
