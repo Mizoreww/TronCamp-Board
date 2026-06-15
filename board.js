@@ -117,8 +117,17 @@
       .catch(function () { /* 静态站:加载失败保持现状,下轮重试 */ });
   }
 
+  // 把网页提交页地址写进所有 [data-submit-link](官网→后端 /submit 跳转)。
+  function wireSubmitLinks() {
+    var url = cfg.SUBMIT_URL;
+    if (!url) return;
+    var links = document.querySelectorAll('[data-submit-link]');
+    for (var i = 0; i < links.length; i++) links[i].setAttribute('href', url);
+  }
+
   window.addEventListener('DOMContentLoaded', function () {
     BOARD = document.body.dataset.board || 'dev';
+    wireSubmitLinks();
     load();
     setInterval(load, REFRESH);
   });
