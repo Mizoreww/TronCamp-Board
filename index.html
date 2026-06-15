@@ -63,11 +63,11 @@
       </p>
       <p>
         全卷统一用 <strong>π0.5</strong>(~3B,FluxVLA 旗舰)、单任务 Wipe、单仿真栈,比的是<strong>力觉算法</strong>而非模型大小。
-        开放挑战:主办方下发专家轨迹 bag / 数据集与评测;<strong>数据由主办方给定、不可重新采集</strong>,数据处理 / 模型 / 训练自己来。
+        开放挑战:主办方下发无力数据集 / 专家轨迹 bag 与评测;<strong>数据由主办方给定、不可重新采集</strong>,数据处理 / 模型 / 训练自己来。
       </p>
       <p>
-        唯一评测环境:每 episode 桌高在 <strong>±3cm</strong> 内随机偏移。提交一个模型、评测一次,按成功率与力质量导出
-        T1 / T2 / T3 三档,<strong>顺序解锁</strong>(过 T1 → 过 T2 → 进 T3 主榜)。偏移相机难以直读,
+        唯一评测环境:每 episode 桌高在 <strong>±3cm</strong> 内随机偏移。<strong>分题提交</strong> —— T1 / T2 / T3 各自交各自的模型、各自独立评测一次,
+        <strong>顺序解锁</strong>(过 T1 → 过 T2 → 进 T3 主榜);T1 / T2 过了即锁定,T3 是竞技场可反复刷。偏移相机难以直读,
         纯视觉策略会戳桌 / 悬空,会用力的策略才能稳擦——擦除率由此拉开。
       </p>
     </div>
@@ -102,14 +102,14 @@
     <div class="sec-head">
       <span class="sec-num">02 / 赛题</span>
       <h2>三道递进必做题</h2>
-      <p>每队提交一个模型(<b>你的代码 + 权重</b>),在唯一评测环境(桌高 ±3cm 随机偏移、固定 seed 表全场一致)用<b>你的代码</b>评测一次;T1 / T2 / T3 由这一条成绩导出、顺序解锁。三档都跑你的代码,差别只在判定口径:T1 / T2 达标即满分,主榜只排 T3 绝对分。</p>
+      <p><b>分题提交</b> —— T1 / T2 / T3 各自提交各自的模型、各自在唯一评测环境(桌高 ±3cm 随机偏移、固定 seed 表全场一致)独立评测一次。<b>顺序解锁</b>:没过 T1 不能交 T2,没过 T2 不能交 T3;T1 / T2 过了即<b>锁定</b>(再交被拒),T3 是竞技场可反复刷。T1 / T2 达标即满分,主榜只排 T3 绝对分。</p>
     </div>
     <table class="dtable">
       <thead><tr><th style="width:5rem">档</th><th style="width:8rem">名称</th><th>内容</th><th style="width:14rem">计分</th></tr></thead>
       <tbody>
-        <tr><td class="lvl">T1</td><td>管线通关</td><td>用<b>给定</b>的专家轨迹 bag / 数据集自建数据处理与训练管线,跑通"数据 → 训练 → 上榜";处理与 I/O 完全放开(数据不可重新采集)。</td><td>成功率 SR ≥ 0.25 → 达标满分</td></tr>
-        <tr><td class="lvl">T2</td><td>力觉接入</td><td>接入六维力/力矩,在 ±3cm 偏移下稳擦;可用脚手架的力觉接入示例。</td><td>SR ≥ 0.55 → 达标满分(须先过 T1)</td></tr>
-        <tr><td class="lvl">T3</td><td>力觉改进<br><span class="th-sub">全卷重心 · 主榜</span></td><td>任意改进力觉算法(数据 / 表征 / 力注入 / 架构),在 ±3cm 下冲最高分;C / D 级改进在你的代码里生效。</td><td>T3 = 0.7·擦除率 + 0.3·力质量分,降序排名(须先过 T2)</td></tr>
+        <tr><td class="lvl">T1</td><td>无力保底</td><td>用主办方<b>给定的无力数据集 + 官方 config</b> 训练一个<b>无力模型</b>(数据的输入输出里没有力);<b>只交权重、不带代码</b>。</td><td>成功率 SR ≥ 0.25 → 达标满分</td></tr>
+        <tr><td class="lvl">T2</td><td>力觉接入<br><span class="th-sub">开放</span></td><td>主办方<b>只给专家轨迹 bag + 评测 harness</b>;数据处理 / 力表征 / 力注入 / 模型 / 训练全部自己做。交<b>权重 + 代码包</b>。</td><td>SR ≥ 0.55 → 达标满分(须先过 T1;±3cm 下基本要会用力才过)</td></tr>
+        <tr><td class="lvl">T3</td><td>力觉改进<br><span class="th-sub">全卷重心 · 主榜 · 开放</span></td><td>同 T2 的开放环境,任意改进力觉算法(数据 / 表征 / 力注入 / 架构),在 ±3cm 下冲最高分;改进在你的代码里生效。</td><td>T3 = 0.7·擦除率 + 0.3·力质量分,降序排名(须先过 T2)</td></tr>
       </tbody>
     </table>
 
@@ -138,10 +138,10 @@
     </div>
     <table class="dtable">
       <tbody>
-        <tr><td class="lvl" style="width:7rem">赛制</td><td>10 天纯线上,每队 2×A100-80G。开放挑战:主办方下发专家轨迹 bag + 评测 harness + 可选脚手架(含力觉接入起步示例)。<b>数据由主办方给定、不可重新采集</b>;在给定数据上的处理 / 模型 / 训练全自由。单模型 π0.5、单任务 Wipe、单仿真栈,版本锁定 FluxVLA 指定 commit,赛中不跟上游。</td></tr>
-        <tr><td class="lvl">评测条件</td><td>唯一环境:桌高 ±3cm 随机偏移,固定 seed 表全场一致。每模型 dev 50 / final 100 个独立 seed episode 跑一次。dev seed 表(含 corrupter salt)随脚手架公开——<b>本地评测分 = dev 榜分</b>,可本地自测。</td></tr>
-        <tr><td class="lvl">提交</td><td>每队每日(UTC+8)≤ 2 次,超额拒绝。截止时刻提交通道关闭,<b>当时的 dev 榜即最终成绩</b>(榜单页有倒计时)。</td></tr>
-        <tr><td class="lvl">红线</td><td>① <b>单次提交、用你上传的代码评测一次,T1 / T2 / T3 同出这一条成绩</b>;数据处理 / IO / 力注入 / 模型 / 训练方法完全放开,主办方不审查代码、只看统一评测的达标与分数;② 自定义模块 / 表征 / 注入在你的代码里全生效(T3 的 C / D 级改进据此计分);③ 推理期只用白名单观测,仿真内部状态 / 私有 seed 碰不到(ZMQ 进程隔离 + 沙箱);④ Final 名次用私有 seed 表统跑,防 dev 过拟合;⑤ 伪造评测或绕过隔离,单题零分起。</td></tr>
+        <tr><td class="lvl" style="width:7rem">赛制</td><td>10 天纯线上,每队 2×A100-80G。<b>分题提交</b>:T1 用给定无力数据集 + 官方 config 训无力模型;T2 / T3 为开放挑战,主办方下发专家轨迹 bag + 评测 harness + 可选脚手架。<b>数据由主办方给定、不可重新采集</b>;T2 / T3 上的数据处理 / 模型 / 训练全自由。单模型 π0.5、单任务 Wipe、单仿真栈,版本锁定 FluxVLA 指定 commit,赛中不跟上游。</td></tr>
+        <tr><td class="lvl">评测条件</td><td>唯一环境:桌高 ±3cm 随机偏移,固定 seed 表全场一致。每题各交各的模型、各自评测,每模型 dev 50 / final 100 个独立 seed episode 跑一次。dev seed 表(含 corrupter salt)随脚手架公开——<b>本地评测分 = dev 榜分</b>,可本地自测。</td></tr>
+        <tr><td class="lvl">提交</td><td>每队每日(UTC+8)≤ 2 次,超额拒绝。<b>顺序解锁</b>:过 T1 才能交 T2,过 T2 才能交 T3;T1 / T2 过了即锁定。截止时刻提交通道关闭,<b>当时的 dev 榜即最终成绩</b>(榜单页有倒计时)。</td></tr>
+        <tr><td class="lvl">红线</td><td>① <b>每题各交各的模型、各自独立评测一次</b>;T2 / T3 的数据处理 / IO / 力注入 / 模型 / 训练方法完全放开,主办方不审查代码、只看评测的达标与分数;② 自定义模块 / 表征 / 注入在你的代码里全生效(T3 的改进据此计分);③ 推理期只用白名单观测,仿真内部状态 / 私有 seed 碰不到(ZMQ 进程隔离 + 沙箱);④ Final 名次用私有 seed 表统跑,防 dev 过拟合;⑤ 伪造评测或绕过隔离,单题零分起。</td></tr>
       </tbody>
     </table>
   </div>
@@ -162,13 +162,13 @@
 
     <div class="sec-head" style="margin-top:2rem;margin-bottom:1rem">
       <h2 style="font-size:1.3rem">逐档计算口径</h2>
-      <p>三档全部由同一次评测(每模型 dev 50 / final 100 个独立 ±3cm seed episode)导出,顺序解锁。</p>
+      <p>三题各交各的模型、各自独立评测一次(每模型 dev 50 / final 100 个独立 ±3cm seed episode),顺序解锁。</p>
     </div>
     <table class="dtable">
       <thead><tr><th style="width:5.5rem">档</th><th style="width:8rem">指标</th><th>计算方式</th><th style="width:13rem">判定 / 排名</th></tr></thead>
       <tbody>
-        <tr><td class="lvl">T1</td><td>成功率 SR</td><td>SR = 成功 episode 占比;<b>单 episode 成功 = 擦除率 ≥ 90%</b>。</td><td>SR ≥ <b>0.25</b>(低阈值,±3cm 实测标定)→ 达标满分(绿勾)</td></tr>
-        <tr><td class="lvl">T2</td><td>成功率 SR</td><td>同一条成绩的 SR,不另跑评测。</td><td>SR ≥ <b>0.55</b>(高阈值)→ 达标满分;须先过 T1(±3cm 下基本需用力才过)</td></tr>
+        <tr><td class="lvl">T1</td><td>成功率 SR</td><td>无力模型的 SR = 成功 episode 占比;<b>单 episode 成功 = 擦除率 ≥ 90%</b>。</td><td>SR ≥ <b>0.25</b>(低阈值,±3cm 实测标定)→ 达标满分(绿勾)</td></tr>
+        <tr><td class="lvl">T2</td><td>成功率 SR</td><td>力觉模型独立评测的 SR。</td><td>SR ≥ <b>0.55</b>(高阈值)→ 达标满分;须先过 T1(±3cm 下基本需用力才过)</td></tr>
         <tr><td class="lvl">T3</td><td>绝对分</td><td><b>0.7·擦除率 + 0.3·力质量分</b>;擦除率 = 各 episode 擦除百分比的均值(连续量,非二值)。</td><td>须先过 T2 解锁;按 T3 绝对分<b>降序排名</b>(主榜)</td></tr>
         <tr><td class="lvl">力质量分</td><td>接触力行为<br><span class="th-sub">(进 T3,权重 0.3)</span></td><td><b>0.4·带内 + 0.2·(1−超压) + 0.2·(1−峰值惩罚) + 0.2·(1−抖动惩罚)</b>,均在接触相、对真实法向力 |Fz| 计,由 scorer 从落盘力轨迹重算。</td><td>带内 = |Fz|∈[3.0, 10.3] N 占比;超压 = |Fz| &gt; 1.5·P90 占比;峰值惩罚 = 峰值超 2·P90 程度;抖动 = 相邻帧力差标准差</td></tr>
       </tbody>
@@ -185,25 +185,29 @@
   <div class="wrap">
     <div class="sec-head">
       <span class="sec-num">05 / 提交方式</span>
-      <h2>上传代码包 + 权重,自动评测上榜</h2>
-      <p>不交公开 fork(会泄露解法)——上传你的代码压缩包 + 权重。评测机解压后用<b>你的</b>代码起推理服务,在 ZMQ 进程隔离 + 沙箱里跑分;成功率与力质量分均由主办方 harness 从仿真算出,选手自报无效。每队每日(UTC+8)≤ 2 次。</p>
+      <h2>命令行分题提交,自动评测上榜</h2>
+      <p>提交唯一通道是命令行 <code>scripts/submit.py</code>,按 <b>T1 → T2 → T3</b> 分题各交各的模型。T1 只交无力模型权重;T2 / T3 交权重 + 整个代码库(CLI 自动打包上传)。评测机用<b>你的</b>代码起推理服务,在 ZMQ 进程隔离 + 沙箱里跑分;成功率与力质量分均由主办方 harness 从仿真算出,选手自报无效。每队每日(UTC+8)≤ 2 次,顺序解锁(过 T1 才能交 T2,过 T2 才能交 T3)。</p>
     </div>
-    <div class="submit-cta">
-      <a class="btn primary" data-submit-link href="http://139.196.22.178:8080/submit" target="_blank" rel="noopener">网页提交 ↗</a>
-      <span class="submit-cta-note">浏览器选文件直传权重 / 代码包,后端自动算 SHA256,无需装环境。</span>
-    </div>
-    <p style="margin-top:1.4rem;color:var(--muted);font-size:0.95rem">
-      流程:① 用给定数据(专家轨迹 bag / 数据集)自建处理与训练,不可重新采集(可用脚手架);② 改过的代码(自定义 I/O、力注入、模型结构)打包 <code>.zip</code> / <code>.tar.gz</code>,权重单独导出;③ 网页或 CLI 上传代码包 + 权重(两者留空则跑官方力觉基线保底);④ 评测机隔离起服务、<code>score_force.py</code> 跑分 → Dev 榜实时、Final 截止冻结。
+    <p style="margin-top:0.2rem;color:var(--muted);font-size:0.95rem">
+      <b style="color:var(--text)">T1(无力保底)</b>:用给定无力数据集 + 官方 config 训无力模型,<b>只交权重</b>:
     </p>
-    <p style="margin-top:1.4rem;color:var(--muted);font-size:0.92rem">也可<b style="color:var(--text)">命令行 / 自动化提交</b>(大文件、批量更稳):</p>
-    <div class="code"><span class="c"># 上传代码包 + 权重,自动算 SHA256</span>
-python scripts/submit.py <span class="a">--server</span> http://&lt;评测服务器&gt;:8080 <span class="a">--token</span> &lt;队伍令牌&gt; \
-  <span class="a">--code-file</span> ./mycode.zip <span class="a">--ckpt-file</span> ./force.pt</div>
+    <div class="code"><span class="c"># T1:只交权重,不带代码</span>
+python scripts/submit.py <span class="a">--track</span> T1 <span class="a">--server</span> http://&lt;评测服务器&gt;:8080 <span class="a">--token</span> &lt;队伍令牌&gt; \
+  <span class="a">--ckpt-file</span> ./noforce.pt</div>
+    <p style="margin-top:1.4rem;color:var(--muted);font-size:0.95rem">
+      <b style="color:var(--text)">T2 / T3(开放)</b>:加 <code>--code-dir &lt;你的代码库根&gt;</code>,CLI 自动把整个代码库打成 <code>.tar.gz</code> 上传;可选 <code>--config-path</code> 指定包内 config:
+    </p>
+    <div class="code"><span class="c"># T2 / T3:权重 + 代码库(自动打包上传),可选 config 路径</span>
+python scripts/submit.py <span class="a">--track</span> T3 <span class="a">--server</span> http://&lt;评测服务器&gt;:8080 <span class="a">--token</span> &lt;队伍令牌&gt; \
+  <span class="a">--code-dir</span> ./mycode <span class="a">--ckpt-file</span> ./force.pt <span class="a">--config-path</span> configs/pi05/my.py</div>
+    <p style="margin-top:1.4rem;color:var(--muted);font-size:0.95rem">
+      流程:① 用给定数据(无力数据集 / 专家轨迹 bag)自建处理与训练,不可重新采集(可用脚手架);② T2 / T3 改过的代码(自定义 I/O、力注入、模型结构)随 <code>--code-dir</code> 自动打包,权重单独导出;③ <code>submit.py</code> 按 <code>--track</code> 分题上传(自动算 SHA256);④ 评测机隔离起服务、<code>score_force.py</code> 跑分 → Dev 榜实时、Final 截止冻结。
+    </p>
     <p style="margin-top:1rem;color:var(--muted);font-size:0.9rem">你可自由改数据处理 / 表征 / 力注入 / 架构(T3 改进方向 A–D);但只拿得到 ZMQ 白名单观测、读不到私有 seed,分数由 harness 算 —— <b style="color:var(--text)">改 I/O 是开放挑战要的,作弊作不了</b>。</p>
 
     <div class="sec-head" style="margin-top:2.4rem;margin-bottom:1rem">
       <h2 style="font-size:1.3rem">最终截止前还需提交</h2>
-      <p>赛中只需上传代码包 + 权重自动评测上榜;<b>最终截止前</b>另需提交以下两项,用于复现核验与评审:</p>
+      <p>赛中只需按题用 <code>submit.py</code> 提交模型自动评测上榜;<b>最终截止前</b>另需提交以下两项,用于复现核验与评审:</p>
     </div>
     <table class="dtable">
       <tbody>

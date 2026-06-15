@@ -5,7 +5,4 @@
 window.BOARD_CONFIG = {
   BOARD_DATA_URL: "./data/leaderboard.json",
   REFRESH_SECONDS: 60,
-  // 网页提交页(评测后端伺服)。Pages 为 https、后端为 http,故官网用"跳转"而非
-  // 内嵌上传表单,避免浏览器混合内容拦截。换评测机/给后端上 https 时只改这一处。
-  SUBMIT_URL: "http://139.196.22.178:8080/submit",
 };
