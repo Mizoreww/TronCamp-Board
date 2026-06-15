@@ -288,3 +288,13 @@ footer { border-top: 1px solid var(--line); padding: 3rem 0; color: var(--dim); 
   .nav-links a:not(.cta) { display: none; }
   table.board { font-size: 0.9rem; }
 }
+
+/* ── #submit 评测可视化(2026-06-15) ── */
+.fig-wide { margin: 1.8rem 0 0; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--panel); }
+.fig-wide img { display: block; width: 100%; }
+.fig-wide figcaption,
+.explain-grid figcaption { padding: 0.75rem 1rem; font-size: 0.84rem; line-height: 1.55; color: var(--muted); border-top: 1px solid var(--line-soft); }
+.explain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.3rem; margin-top: 1.3rem; }
+.explain-grid .fig { border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--panel); display: flex; flex-direction: column; }
+.explain-grid .fig img { display: block; width: 100%; }
+@media (max-width: 760px) { .explain-grid { grid-template-columns: 1fr; } }

@@ -35,7 +35,7 @@
       当前所有主流 VLA 都是"视觉动物"。本赛事基于 LimX Dynamics 开源的
       <a href="https://github.com/limxdynamics/FluxVLA" target="_blank" rel="noopener">FluxVLA</a>
       平台,在 robosuite <b>Wipe 恒压擦拭</b>任务上,让你给视觉主导的 π0.5 接上六维力/力矩,
-      在桌高随机偏移 + 遮挡的扰动下,用更会"用力"的算法把擦除做到最好。
+      在桌高随机偏移的扰动下,用更会"用力"的算法把擦除做到最好。
     </p>
     <div class="chips">
       <span class="chip"><b>10</b> 天纯线上</span>
@@ -76,7 +76,7 @@
           <strong>主榜只排 T3 绝对分,决定名次</strong>。
         </p>
         <p style="color:var(--dim);font-size:0.9rem">
-          全卷只有一个评测环境:"桌高 ±3cm 随机偏移 + 视觉遮挡"。T1/T2/T3 三档由同一条成绩
+          全卷只有一个评测环境:"桌高 ±3cm 随机偏移"。T1/T2/T3 三档由同一条成绩
           按阈值/绝对分导出——偏移相机难以直读,纯视觉策略会戳桌/悬空,会用力的策略才能稳擦,
           擦除率由此拉开。
         </p>
@@ -95,7 +95,7 @@
     <div class="sec-head">
       <span class="sec-num">02 / 赛题</span>
       <h2>三道递进必做题</h2>
-      <p>单一评测环境:桌高 ±3cm 偏移 + 视觉遮挡(固定 seed 表全场一致),每队提交一个模型只评测一次,T1/T2/T3 三档由同一条成绩导出。所有量化指标由评测集群自动计算,逐 episode 配对。T1/T2 达标即满分,主榜只排 T3 绝对分。</p>
+      <p>单一评测环境:桌高 ±3cm 偏移(固定 seed 表全场一致),每队提交一个模型只评测一次,T1/T2/T3 三档由同一条成绩导出。所有量化指标由评测集群自动计算,逐 episode 配对。T1/T2 达标即满分,主榜只排 T3 绝对分。</p>
     </div>
     <div class="cards tasks">
       <div class="card task-card">
@@ -113,7 +113,7 @@
         <h3>力觉接入</h3>
         <div class="role">进阶 · ±3cm 扰动 · 达标即满分</div>
         <ul>
-          <li>接入六维力,在桌高 ±3cm 偏移 + 视觉遮挡下稳擦</li>
+          <li>接入六维力,在桌高 ±3cm 偏移下稳擦</li>
           <li>同一 ±3cm 扰动评测下成功率 ≥ 高阈值即满分(绿勾)</li>
           <li>同样放开数据管线 + I/O;参考脚手架给现成力觉接入示例</li>
         </ul>
@@ -160,7 +160,7 @@
       </div>
       <div class="card">
         <h3>评测条件</h3>
-        <p>单一评测环境:桌高 ±3cm 随机偏移 + 视觉遮挡。每队模型 dev 50 / final 100 个独立场景 seed episodes 跑一次,逐 episode 配对;T1/T2/T3 三档由这一条成绩按阈值/绝对分导出。dev seed 表(含 corrupter salt)随脚手架公开——<b>本地评测分 = dev 榜分</b>,选手可本地自测。</p>
+        <p>单一评测环境:桌高 ±3cm 随机偏移。每队模型 dev 50 / final 100 个独立场景 seed episodes 跑一次,逐 episode 配对;T1/T2/T3 三档由这一条成绩按阈值/绝对分导出。dev seed 表(含 corrupter salt)随脚手架公开——<b>本地评测分 = dev 榜分</b>,选手可本地自测。</p>
       </div>
       <div class="card">
         <h3>提交限额</h3>
@@ -203,8 +203,8 @@
       </div>
       <div class="card layer-card">
         <div class="ln">③ 难度条件</div>
-        <h3>桌高 ±3cm + 遮挡</h3>
-        <p>T3 在桌高 ±3cm 随机偏移 + 视觉遮挡下计分。偏移由相机难以直读,纯视觉策略读不到桌高变化,会用力的策略才能稳擦——这正是把擦除率拉开的难度来源。力觉增益 Δ 仍由 scorer 计算留作诊断,但不进主榜分。</p>
+        <h3>桌高 ±3cm 偏移</h3>
+        <p>T3 在桌高 ±3cm 随机偏移下计分。偏移由相机难以直读,纯视觉策略读不到桌高变化,会用力的策略才能稳擦——这正是把擦除率拉开的难度来源。力觉增益 Δ 仍由 scorer 计算留作诊断,但不进主榜分。</p>
       </div>
     </div>
   </div>
@@ -215,21 +215,39 @@
   <div class="wrap">
     <div class="sec-head">
       <span class="sec-num">05 / 提交方式</span>
-      <h2>自动评测,选手自报数字无效</h2>
-      <p>fork 官方题目库 → 训练 → 提交 checkpoint → 评测集群自动跑分上榜。本地用同一套 harness 与 dev 种子,跑分与 dev 榜一致。</p>
+      <h2>上传代码包 + 权重,自动评测上榜</h2>
+      <p>不交公开 fork(那会泄露解法)—— 像传权重一样<b>上传你的代码压缩包</b>。评测机解压后用<b>你的</b>代码起推理服务,在 ZMQ 进程隔离 + 沙箱里跑分。选手自报数字无效:成功率与力质量分都由主办方 harness 从仿真算出。每队每日(UTC+8)≤2 次。</p>
     </div>
     <div class="steps">
-      <div class="step"><span class="sn"></span><div><h4>Fork 官方 Starter</h4><p>脚手架、提交模板、本地评测命令内置;以锁定 commit 为 base。</p></div></div>
-      <div class="step"><span class="sn"></span><div><h4>训练并核验</h4><p>从专家轨迹 bag 自建管线训练(可选用参考脚手架);保留可在线核验的 wandb run。</p></div></div>
-      <div class="step"><span class="sn"></span><div><h4>提交 checkpoint</h4><p>CLI <code>scripts/submit.py</code> 或评测站网页上传入口(自动算 SHA256 回填);每日 ≤2 次。</p></div></div>
-      <div class="step"><span class="sn"></span><div><h4>ZMQ 隔离评测</h4><p>选手 policy 进程(GPU)与主办方仿真 harness(CPU、私有种子)进程隔离,选手代码碰不到仿真内部状态。<b>T3 用你 fork 的代码起服务</b>,自定义模块全生效。</p></div></div>
-      <div class="step"><span class="sn"></span><div><h4>自动算分上榜</h4><p>统一 <code>score_force.py</code> 算三层指标,逐 episode 日志落盘;Dev 榜实时,Final 榜截止冻结。</p></div></div>
+      <div class="step"><span class="sn"></span><div><h4>训练你的模型</h4><p>从专家轨迹 bag 自建数据 / 训练管线(可选用参考脚手架,含 ForceVLA 连续力 token 示例);保留可在线核验的 wandb run。</p></div></div>
+      <div class="step"><span class="sn"></span><div><h4>打包代码 + 导出权重</h4><p>你改过的代码(自定义 I/O、力注入、模型结构 —— 这些在<b>代码</b>里、不在权重里)打成 <code>.zip</code> / <code>.tar.gz</code>;权重单独导出。</p></div></div>
+      <div class="step"><span class="sn"></span><div><h4>上传提交</h4><p>网页或 CLI 上传<b>代码包 + 权重</b>(后端自动算 SHA256 回填);两者留空则跑官方力觉基线保底。</p></div></div>
+      <div class="step"><span class="sn"></span><div><h4>隔离评测 · 自动上榜</h4><p>评测机解压你的代码 → ZMQ 起<b>你的</b> policy server(沙箱遮罩私有 seed / secret,实测读不到)→ harness 驱动仿真、<code>score_force.py</code> 算分 → Dev 榜实时、Final 截止冻结。</p></div></div>
     </div>
-    <div class="code"><span class="c"># 命令行提交(权重直接上传,后端自动算 SHA256;每队一次提交)</span>
+    <div class="code"><span class="c"># 命令行提交(代码包 + 权重直传,自动算 SHA256;每队一次提交)</span>
 python scripts/submit.py <span class="a">--server</span> http://&lt;评测服务器&gt;:8080 <span class="a">--token</span> &lt;队伍令牌&gt; \
-  <span class="a">--ckpt-file</span> ./force.pt \
-  <span class="a">--git-url</span> &lt;你的fork&gt; <span class="a">--git-tag</span> &lt;tag&gt;</div>
-    <p style="margin-top:1.2rem;color:var(--dim);font-size:0.9rem">
+  <span class="a">--code-file</span> ./mycode.zip <span class="a">--ckpt-file</span> ./force.pt</div>
+    <p style="margin-top:1rem;color:var(--muted);font-size:0.9rem">你能自由改采数 / 表征 / 力注入 / 架构(T3 改进点菜单 A–D);但只拿得到 ZMQ 白名单观测、读不到私有 seed(沙箱实测 Permission denied)、分数由 harness 算 —— <b style="color:var(--text)">改 I/O 是开放挑战要的,作弊作不了</b>。也可改用 git 私有仓 + 邀请评测账号(<code>--git-url</code>)。</p>
+
+    <div class="sec-head" style="margin-top:3rem;margin-bottom:1.2rem">
+      <h2 style="font-size:1.35rem">评测在测什么</h2>
+      <p>全卷只有一个评测环境:robosuite Wipe 恒压擦拭,桌高 ±3cm 随机偏移,固定 seed 表全场一致、逐 episode 配对。</p>
+    </div>
+    <figure class="fig fig-wide">
+      <img src="./assets/wipe.jpg" alt="robosuite Wipe 任务四帧官方渲染">
+      <figcaption>图 · robosuite Wipe(恒压擦拭)—— 四帧官方环境渲染。图源:robosuite 文档(MIT)。机械臂以受控接触力沿桌面擦除污渍:压力不足擦不掉、过大触发超力惩罚。全卷计分只用这一个任务。</figcaption>
+    </figure>
+    <div class="explain-grid">
+      <figure class="fig">
+        <img src="./assets/table_offset.svg" alt="桌高 ±3cm 偏移示意">
+        <figcaption><b>难度条件 · 桌高 ±3cm 偏移</b>:每 episode 桌高在 ±3cm 内随机偏移,相机几乎读不出高低。纯视觉策略读不到桌高变化、会戳桌 / 悬空,会用力的策略靠接触直接感知 —— 力觉就在这里把擦除率拉开。</figcaption>
+      </figure>
+      <figure class="fig">
+        <img src="./assets/force_quality.svg" alt="力质量分折线图:接触力与专家带">
+        <figcaption><b>力质量分(示意)</b>:接触法向力落在专家带 P10–P90(3.0–10.3 N)内的时间占比越高越好。"成功但暴力"(红线超压硬怼)成功率好看、力行为糟;真会用力的策略(青线)恒压贴合。由主办方 scorer 从落盘力轨迹重算。</figcaption>
+      </figure>
+    </div>
+    <p style="margin-top:1.4rem;color:var(--dim);font-size:0.9rem">
       详见 <a href="https://github.com/Mizoreww/TronCamp/blob/main/docs/hackathon/STUDENT_HANDBOOK.md" target="_blank" rel="noopener">学生手册</a>
       与 <a href="https://github.com/Mizoreww/TronCamp/blob/main/docs/hackathon/t3_menu_starters.md" target="_blank" rel="noopener">T3 改进点对照表</a>。
     </p>
