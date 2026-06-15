@@ -1,5 +1,5 @@
-// TronCamp VLA LeaderBoard 表格渲染(总分排名,T1/T2/T3 分组列)。
-// 数据契约见 boardpub/publish.py;数值以 ×100 一位小数展示,Δ 带符号。
+// TronCamp VLA LeaderBoard 表格渲染(2026-06-15 重构:只按 T3 绝对分排名)。
+// T1/T2 达标显绿勾,T3 = 分数(0.7·擦除 + 0.3·力质量)+ 进度条。契约见 publish.py。
 (function () {
   'use strict';
 
@@ -8,42 +8,43 @@
   var REFRESH = (cfg.REFRESH_SECONDS || 60) * 1000;
   var BOARD = 'dev';  // 实际值在 DOMContentLoaded 时从 <body data-board> 读取
 
-  function pts(x) {
-    return (x === null || x === undefined) ? '—' : (x * 100).toFixed(1);
-  }
-
-  function delta(x) {
-    if (x === null || x === undefined) return '<span class="dimcell">—</span>';
-    var cls = x >= 0 ? 'pos' : 'neg';
-    return '<span class="' + cls + '">' + (x >= 0 ? '+' : '') + (x * 100).toFixed(1) + '</span>';
-  }
-
   function esc(s) {
     var d = document.createElement('div');
     d.textContent = String(s);
     return d.innerHTML;
   }
 
+  // T1/T2 达标门:达标=绿勾,未达标=空圈(hover 看成功率),未提交=点。
+  function gate(g) {
+    if (!g) return '<span class="gate gate-none" title="未提交">·</span>';
+    if (g.pass) return '<span class="gate gate-ok" title="已达标">✓</span>';
+    var sr = (g.success_rate != null) ? ' ' + Math.round(g.success_rate * 100) + '%' : '';
+    return '<span class="gate gate-miss" title="未达标' + sr + '">○</span>';
+  }
+
+  // T3 分数 = 0.7·擦除 + 0.3·力质量(×100 一位小数)+ 进度条 + 擦/力分量。
+  function t3cell(t3) {
+    if (!t3 || t3.score === null || t3.score === undefined) {
+      return '<td class="c-t3"><span class="dimcell">未上场</span></td>';
+    }
+    var w = Math.max(2, Math.min(100, t3.score * 100));
+    var sub = (t3.wipe_rate != null && t3.force_quality != null)
+      ? '<span class="t3sub">擦 ' + Math.round(t3.wipe_rate * 100) +
+        ' · 力 ' + Math.round(t3.force_quality * 100) + '</span>'
+      : '';
+    return '<td class="c-t3"><div class="t3wrap">' +
+      '<span class="t3num">' + (t3.score * 100).toFixed(1) + '</span>' + sub +
+      '<span class="t3bar"><i style="width:' + w + '%"></i></span></div></td>';
+  }
+
   function rowHtml(r) {
-    var t1 = r.t1 || {};
-    var t2 = r.t2 || {};
-    var t3 = r.t3 || {};
-    var t3main = (t3.composite === null || t3.composite === undefined)
-      ? '<span class="dimcell">—</span>'
-      : (t3.baseline
-        ? '<span class="dimcell">' + pts(t3.composite) + '</span><span class="tag">保底</span>'
-        : pts(t3.composite));
-    return '<tr>' +
-      '<td class="rank">' + r.rank + '</td>' +
-      '<td class="team">' + esc(r.team) + '</td>' +
-      '<td class="total">' + pts(r.total) + '</td>' +
-      '<td class="gstart">' + pts(t1.clean) + '</td>' +
-      '<td class="gstart">' + pts(t2.composite) + '</td>' +
-      '<td>' + pts(t2.wipe_rate) + '</td>' +
-      '<td>' + pts(t2.force_quality) + '</td>' +
-      '<td>' + delta(t2.delta1) + '</td>' +
-      '<td class="gstart">' + t3main + '</td>' +
-      '<td>' + delta(t3.delta2) + '</td>' +
+    var cls = r.rank <= 3 ? ' top top' + r.rank : '';
+    return '<tr class="brow' + cls + '">' +
+      '<td class="c-rank">' + r.rank + '</td>' +
+      '<td class="c-team">' + esc(r.team) + '</td>' +
+      '<td class="c-gate">' + gate(r.t1) + '</td>' +
+      '<td class="c-gate">' + gate(r.t2) + '</td>' +
+      t3cell(r.t3) +
       '</tr>';
   }
 
@@ -79,7 +80,7 @@
     var over = renderCountdown(data.deadline);
 
     var locked = document.getElementById('locked');
-    var table = document.getElementById('board');
+    var table = document.getElementById('board-table');
     var empty = document.getElementById('empty');
 
     // final = 截止时刻冻结的 dev 榜(不单独统跑);截止前 final 页显示倒计时

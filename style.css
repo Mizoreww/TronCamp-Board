@@ -239,6 +239,29 @@ table.board td.total { color: var(--accent); font-size: 1.3rem; font-weight: 700
 table.board td.gstart { border-left: 1px solid var(--line); }
 td .pos { color: var(--accent); } td .neg { color: var(--bad); } .dimcell { color: var(--dim); }
 .tag { font-size: 0.72rem; color: var(--dim); border: 1px solid var(--line); border-radius: 3px; padding: 0 0.35rem; margin-left: 0.4rem; }
+
+/* ── 排行榜进度条版(2026-06-15):T1/T2 达标绿勾,T3 分数+进度条,只按 T3 排名 ── */
+table.board-strip td, table.board-strip thead th { text-align: center; }
+table.board-strip .c-rank { width: 3.2rem; color: var(--dim); font-family: var(--mono); font-size: 1.05rem; }
+table.board-strip tbody tr.top1 .c-rank { color: #ffd76a; }
+table.board-strip tbody tr.top2 .c-rank { color: #cdd6e2; }
+table.board-strip tbody tr.top3 .c-rank { color: #e2a878; }
+table.board-strip tbody tr.top .c-rank { font-weight: 700; }
+table.board-strip td.c-team { text-align: left; padding-left: 1.1rem; font-family: var(--body); font-size: 1.05rem; font-weight: 600; }
+.th-sub { display: block; font-family: var(--mono); font-size: 0.64rem; font-weight: 400; color: var(--dim); letter-spacing: 0.02em; margin-top: 0.18rem; }
+.c-gate { width: 6rem; border-left: 1px solid var(--line-soft); }
+.gate { font-size: 1.2rem; font-weight: 700; line-height: 1; }
+.gate-ok { color: #46d98a; text-shadow: 0 0 10px rgba(70, 217, 138, 0.5); }
+.gate-miss { color: var(--dim); font-size: 0.98rem; }
+.gate-none { color: var(--line); }
+.c-t3 { border-left: 1px solid var(--line); min-width: 9.5rem; }
+.t3wrap { display: inline-flex; flex-direction: column; align-items: center; gap: 0.2rem; min-width: 7rem; }
+.t3num { font-family: var(--display); font-size: 1.4rem; font-weight: 700; color: var(--accent); line-height: 1; }
+.t3sub { font-family: var(--mono); font-size: 0.66rem; color: var(--dim); }
+.t3bar { display: block; width: 100%; height: 3px; background: var(--line); border-radius: 2px; overflow: hidden; }
+.t3bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--accent-dim), var(--accent)); }
+table.board-strip tbody tr.top1 .t3bar i { background: linear-gradient(90deg, var(--accent), #ffd76a); }
+
 #empty, .locked { text-align: center; color: var(--dim); padding: 4rem 0; font-size: 1.3rem; letter-spacing: 0.12em; }
 .locked .big { display: block; color: var(--accent); font-family: var(--display); font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; margin-bottom: 1rem; letter-spacing: 0.2em; }
 

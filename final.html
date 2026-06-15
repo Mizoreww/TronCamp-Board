@@ -40,18 +40,14 @@
       <span class="big">FINAL</span>
       赛末公布
     </div>
-    <table id="board" class="board" hidden>
+    <table id="board-table" class="board board-strip" hidden>
       <thead>
         <tr class="grp">
-          <th rowspan="2">#</th><th rowspan="2">队伍</th><th rowspan="2">总分</th>
-          <th class="tgroup">T1</th>
-          <th class="tgroup" colspan="4">T2</th>
-          <th class="tgroup" colspan="2">T3</th>
-        </tr>
-        <tr class="sub">
-          <th>干净分</th>
-          <th>综合</th><th>擦除率</th><th>力质量</th><th>Δ₁</th>
-          <th>综合</th><th>Δ₂</th>
+          <th class="c-rank">#</th>
+          <th class="c-team">队伍</th>
+          <th class="c-gate">T1 <span class="th-sub">达标</span></th>
+          <th class="c-gate">T2 <span class="th-sub">达标</span></th>
+          <th class="c-t3">T3 分数 <span class="th-sub">0.7·擦除 + 0.3·力质量</span></th>
         </tr>
       </thead>
       <tbody></tbody>
