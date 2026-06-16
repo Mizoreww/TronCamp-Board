@@ -109,7 +109,7 @@
       <tbody>
         <tr><td class="lvl">T1</td><td>仅视觉版本</td><td>用主办方<b>给定的无力数据集 + 官方 config</b> 训练一个<b>无力模型</b>(数据的输入输出里没有力);<b>只交权重、不带代码</b>。</td><td>成功率 SR ≥ 0.25 → 达标满分</td></tr>
         <tr><td class="lvl">T2</td><td>力觉接入<br><span class="th-sub">开放</span></td><td>主办方<b>只给专家轨迹 bag + 评测 harness</b>;数据处理 / 力表征 / 力注入 / 模型 / 训练全部自己做。交<b>权重 + 代码包</b>。</td><td>SR ≥ 0.55 → 达标满分(须先过 T1;±3cm 下基本要会用力才过)</td></tr>
-        <tr><td class="lvl">T3</td><td>力觉改进<br><span class="th-sub">全卷重心 · 主榜 · 开放</span></td><td>同 T2 的开放环境,任意改进力觉算法(数据 / 表征 / 力注入 / 架构),在 ±3cm 下冲最高分;改进在你的代码里生效。</td><td>T3 = 0.7·擦除率 + 0.3·力质量分,降序排名(须先过 T2)</td></tr>
+        <tr><td class="lvl">T3</td><td>力觉改进<br><span class="th-sub">全卷重心 · 主榜 · 开放</span></td><td>同 T2 的开放环境,任意改进力觉算法(数据 / 表征 / 力注入 / 架构),在 ±3cm 下冲最高分;改进在你的代码里生效。</td><td>T3 = 0.5·擦除率 + 0.5·力质量分,降序排名(须先过 T2)</td></tr>
       </tbody>
     </table>
 
@@ -156,7 +156,7 @@
       <p>单看成功率测不出"力"的价值:超压硬怼也能擦完,SR 好看而力行为糟。故主榜 T3 用连续的擦除率与力质量分,而非二值成功率。</p>
     </div>
     <div class="formula">
-      主榜 = T3 绝对分 = <span class="accent">0.7</span>·擦除率 + <span class="accent">0.3</span>·力质量分
+      主榜 = T3 绝对分 = <span class="accent">0.5</span>·擦除率 + <span class="accent">0.5</span>·力质量分
       <span class="dim">  （只排 T3;分数越高名次越前）</span>
     </div>
 
@@ -169,8 +169,8 @@
       <tbody>
         <tr><td class="lvl">T1</td><td>成功率 SR</td><td>无力模型的 SR = 成功 episode 占比;<b>单 episode 成功 = 擦除率 ≥ 90%</b>。</td><td>SR ≥ <b>0.25</b>(低阈值,±3cm 实测标定)→ 达标满分(绿勾)</td></tr>
         <tr><td class="lvl">T2</td><td>成功率 SR</td><td>力觉模型独立评测的 SR。</td><td>SR ≥ <b>0.55</b>(高阈值)→ 达标满分;须先过 T1(±3cm 下基本需用力才过)</td></tr>
-        <tr><td class="lvl">T3</td><td>绝对分</td><td><b>0.7·擦除率 + 0.3·力质量分</b>;擦除率 = 各 episode 擦除百分比的均值(连续量,非二值)。</td><td>须先过 T2 解锁;按 T3 绝对分<b>降序排名</b>(主榜)</td></tr>
-        <tr><td class="lvl">力质量分</td><td>接触力行为<br><span class="th-sub">(进 T3,权重 0.3)</span></td><td><b>0.4·带内 + 0.2·(1−超压) + 0.2·(1−峰值惩罚) + 0.2·(1−抖动惩罚)</b>,均在接触相、对真实法向力 |Fz| 计,由 scorer 从落盘力轨迹重算。</td><td>带内 = |Fz|∈[3.0, 10.3] N 占比;超压 = |Fz| &gt; 1.5·P90 占比;峰值惩罚 = 峰值超 2·P90 程度;抖动 = 相邻帧力差标准差</td></tr>
+        <tr><td class="lvl">T3</td><td>绝对分</td><td><b>0.5·擦除率 + 0.5·力质量分</b>;擦除率 = 各 episode 擦除百分比的均值(连续量,非二值)。</td><td>须先过 T2 解锁;按 T3 绝对分<b>降序排名</b>(主榜)</td></tr>
+        <tr><td class="lvl">力质量分</td><td>接触力行为<br><span class="th-sub">(进 T3,权重 0.5)</span></td><td><b>0.4·带内 + 0.2·(1−超压) + 0.2·(1−峰值惩罚) + 0.2·(1−抖动惩罚)</b>,均在接触相、对真实法向力 |Fz| 计,由 scorer 从落盘力轨迹重算。</td><td>带内 = |Fz|∈[3.0, 10.3] N 占比;超压 = |Fz| &gt; 1.5·P90 占比;峰值惩罚 = 峰值超 2·P90 程度;抖动 = 相邻帧力差标准差</td></tr>
       </tbody>
     </table>
     <figure class="fig" style="margin-top:1.6rem">
@@ -250,7 +250,7 @@ python scripts/submit.py <span class="a">--track</span> T3 <span class="a">--ser
           <th class="c-team">队伍</th>
           <th class="c-gate">T1 <span class="th-sub">达标</span></th>
           <th class="c-gate">T2 <span class="th-sub">达标</span></th>
-          <th class="c-t3">T3 分数 <span class="th-sub">0.7·擦除 + 0.3·力质量 · 过 T2 解锁</span></th>
+          <th class="c-t3">T3 分数 <span class="th-sub">0.5·擦除 + 0.5·力质量 · 过 T2 解锁</span></th>
         </tr>
       </thead>
       <tbody></tbody>

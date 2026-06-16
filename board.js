@@ -1,5 +1,5 @@
 // TronCamp VLA LeaderBoard 表格渲染(2026-06-15 重构:只按 T3 绝对分排名)。
-// T1/T2 达标显绿勾,T3 = 分数(0.7·擦除 + 0.3·力质量)+ 进度条。契约见 publish.py。
+// T1/T2 达标显绿勾,T3 = 分数(0.5·擦除 + 0.5·力质量)+ 进度条。契约见 publish.py。
 (function () {
   'use strict';
 
@@ -22,7 +22,7 @@
     return '<span class="gate gate-miss" title="未达标' + sr + '">○</span>';
   }
 
-  // T3 分数 = 0.7·擦除 + 0.3·力质量(×100 一位小数)+ 进度条 + 擦/力分量。
+  // T3 分数 = 0.5·擦除 + 0.5·力质量(×100 一位小数)+ 进度条 + 擦/力分量。
   function t3cell(t3) {
     if (!t3 || t3.score === null || t3.score === undefined) {
       return '<td class="c-t3"><span class="dimcell">未上场</span></td>';
