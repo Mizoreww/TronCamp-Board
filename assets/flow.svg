@@ -15,7 +15,7 @@
 
   <!-- feedback loop frame (back of the page): 榜单 → 左缘 → 选手左侧入,避开顶部段标 -->
   <path d="M824,383 H928 V20 H8 V72 H20" fill="none" stroke="#5d6878" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#ahd)"/>
-  <text x="510" y="14" text-anchor="middle" class="c" fill="#8a98ac">看榜 · 据反馈改进 · 重新提交(T1 → T2 → T3 顺序解锁,过即锁定)</text>
+  <text x="510" y="14" text-anchor="middle" class="c" fill="#8a98ac">看榜 · 据反馈改进 · 重新提交(T1 → T2 → T3 → T4 顺序解锁,过即锁定)</text>
 
   <!-- ① 提交 band -->
   <text x="24" y="38" class="band">① 提交 · scripts/submit.py 唯一通道</text>
@@ -39,7 +39,7 @@
   <line class="ln" x1="174" y1="72" x2="264" y2="72" marker-end="url(#ah)"/>
   <line class="ln" x1="420" y1="72" x2="510" y2="72" marker-end="url(#ah)"/>
   <line class="ln" x1="666" y1="72" x2="756" y2="72" marker-end="url(#ah)"/>
-  <text x="591" y="120" text-anchor="middle" class="c">闸门:未过前置题 403 · T1/T2 过即锁 409 · 超日限 429</text>
+  <text x="591" y="120" text-anchor="middle" class="c">闸门:未过前置题 403 · T1/T2/T3 过即锁 409 · 超日限 429</text>
 
   <!-- 队列 → worker -->
   <path d="M837,100 V150 H480 V170" class="ln" marker-end="url(#ah)"/>
@@ -68,7 +68,7 @@
   <line class="ln" x1="292" y1="237" x2="306" y2="237" marker-end="url(#ah)"/>
   <line class="ln" x1="488" y1="237" x2="502" y2="237" marker-end="url(#ah)"/>
   <line class="ln" x1="660" y1="237" x2="674" y2="237" marker-end="url(#ah)"/>
-  <text x="400" y="285" text-anchor="middle" class="c">T1:官方 noforce config(只载选手权重)　·　T2/T3:解压选手代码包 + 沙箱起服务</text>
+  <text x="400" y="285" text-anchor="middle" class="c">T1:官方 config(只载选手权重)　·　T2/T3/T4:解压选手代码包 + 沙箱起服务</text>
 
   <!-- worker → 上榜 -->
   <path d="M225,300 V330 H225 V340" class="ln" marker-end="url(#ah)"/>
@@ -95,16 +95,16 @@
   <line x1="24" y1="432" x2="936" y2="432" stroke="#161c25" stroke-width="1"/>
   <g>
     <rect x="24" y="448" width="258" height="48" rx="7" fill="#131822" stroke="#283243" stroke-width="1.2"/>
-    <text x="153" y="470" text-anchor="middle" class="t" font-size="12.5">T1 · 仅视觉版本</text>
-    <text x="153" y="487" text-anchor="middle" class="s">给定无力数据集 + 官方 config · SR ≥ 0.25</text>
+    <text x="153" y="470" text-anchor="middle" class="t" font-size="12.5">T1 · 入门通关</text>
+    <text x="153" y="487" text-anchor="middle" class="s">给定数据集 + 官方 config · 分级 SR 达标</text>
 
     <rect x="351" y="448" width="258" height="48" rx="7" fill="#131822" stroke="#283243" stroke-width="1.2"/>
-    <text x="480" y="470" text-anchor="middle" class="t" font-size="12.5">T2 · 加入力信号</text>
-    <text x="480" y="487" text-anchor="middle" class="s">开放 · 交代码包 + 权重 · SR ≥ 0.55</text>
+    <text x="480" y="470" text-anchor="middle" class="t" font-size="12.5">T2 · 力觉接入</text>
+    <text x="480" y="487" text-anchor="middle" class="s">专家 bag · 力表征/注入 · 分级 SR 达标</text>
 
     <rect x="678" y="448" width="258" height="48" rx="7" fill="#10141c" stroke="#1d7d77" stroke-width="1.3"/>
-    <text x="807" y="470" text-anchor="middle" class="t" font-size="12.5" fill="#38e1d4">T3 · 改进竞技场 · 主榜</text>
-    <text x="807" y="487" text-anchor="middle" class="s">0.7·擦除 + 0.3·力质量 · 排名</text>
+    <text x="807" y="470" text-anchor="middle" class="t" font-size="12.5" fill="#38e1d4">T3 自采 · T4 主榜竞技场</text>
+    <text x="807" y="487" text-anchor="middle" class="s">自采 + ±3cm 扰动 · 0.7·擦除+0.3·力质量</text>
   </g>
   <line class="ln" x1="282" y1="472" x2="345" y2="472" marker-end="url(#ah)"/>
   <line class="ln" x1="609" y1="472" x2="672" y2="472" marker-end="url(#ah)"/>

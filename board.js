@@ -1,5 +1,5 @@
-// TronCamp VLA LeaderBoard 表格渲染(2026-06-15 重构:只按 T3 绝对分排名)。
-// T1/T2 达标显绿勾,T3 = 分数(0.7·擦除 + 0.3·力质量)+ 进度条。契约见 publish.py。
+// TronCamp VLA LeaderBoard 表格渲染(2026-06-16 重构:四档,只按 T4 绝对分排名)。
+// T1/T2/T3 达标显绿勾,T4 = 分数(0.7·擦除 + 0.3·力质量)+ 进度条。契约见 publish.py。
 (function () {
   'use strict';
 
@@ -22,18 +22,18 @@
     return '<span class="gate gate-miss" title="未达标' + sr + '">○</span>';
   }
 
-  // T3 分数 = 0.7·擦除 + 0.3·力质量(×100 一位小数)+ 进度条 + 擦/力分量。
-  function t3cell(t3) {
-    if (!t3 || t3.score === null || t3.score === undefined) {
+  // T4 分数 = 0.7·擦除 + 0.3·力质量(×100 一位小数)+ 进度条 + 擦/力分量。
+  function t4cell(t4) {
+    if (!t4 || t4.score === null || t4.score === undefined) {
       return '<td class="c-t3"><span class="dimcell">未上场</span></td>';
     }
-    var w = Math.max(2, Math.min(100, t3.score * 100));
-    var sub = (t3.wipe_rate != null && t3.force_quality != null)
-      ? '<span class="t3sub">擦 ' + Math.round(t3.wipe_rate * 100) +
-        ' · 力 ' + Math.round(t3.force_quality * 100) + '</span>'
+    var w = Math.max(2, Math.min(100, t4.score * 100));
+    var sub = (t4.wipe_rate != null && t4.force_quality != null)
+      ? '<span class="t3sub">擦 ' + Math.round(t4.wipe_rate * 100) +
+        ' · 力 ' + Math.round(t4.force_quality * 100) + '</span>'
       : '';
     return '<td class="c-t3"><div class="t3wrap">' +
-      '<span class="t3num">' + (t3.score * 100).toFixed(1) + '</span>' + sub +
+      '<span class="t3num">' + (t4.score * 100).toFixed(1) + '</span>' + sub +
       '<span class="t3bar"><i style="width:' + w + '%"></i></span></div></td>';
   }
 
@@ -44,7 +44,8 @@
       '<td class="c-team">' + esc(r.team) + '</td>' +
       '<td class="c-gate">' + gate(r.t1) + '</td>' +
       '<td class="c-gate">' + gate(r.t2) + '</td>' +
-      t3cell(r.t3) +
+      '<td class="c-gate">' + gate(r.t3) + '</td>' +
+      t4cell(r.t4) +
       '</tr>';
   }
 
