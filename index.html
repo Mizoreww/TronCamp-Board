@@ -107,7 +107,7 @@
     <table class="dtable">
       <thead><tr><th style="width:5rem">档</th><th style="width:8rem">名称</th><th>内容</th><th style="width:14rem">计分</th></tr></thead>
       <tbody>
-        <tr><td class="lvl">T1</td><td>无力保底</td><td>用主办方<b>给定的无力数据集 + 官方 config</b> 训练一个<b>无力模型</b>(数据的输入输出里没有力);<b>只交权重、不带代码</b>。</td><td>成功率 SR ≥ 0.25 → 达标满分</td></tr>
+        <tr><td class="lvl">T1</td><td>仅视觉版本</td><td>用主办方<b>给定的无力数据集 + 官方 config</b> 训练一个<b>无力模型</b>(数据的输入输出里没有力);<b>只交权重、不带代码</b>。</td><td>成功率 SR ≥ 0.25 → 达标满分</td></tr>
         <tr><td class="lvl">T2</td><td>力觉接入<br><span class="th-sub">开放</span></td><td>主办方<b>只给专家轨迹 bag + 评测 harness</b>;数据处理 / 力表征 / 力注入 / 模型 / 训练全部自己做。交<b>权重 + 代码包</b>。</td><td>SR ≥ 0.55 → 达标满分(须先过 T1;±3cm 下基本要会用力才过)</td></tr>
         <tr><td class="lvl">T3</td><td>力觉改进<br><span class="th-sub">全卷重心 · 主榜 · 开放</span></td><td>同 T2 的开放环境,任意改进力觉算法(数据 / 表征 / 力注入 / 架构),在 ±3cm 下冲最高分;改进在你的代码里生效。</td><td>T3 = 0.7·擦除率 + 0.3·力质量分,降序排名(须先过 T2)</td></tr>
       </tbody>
@@ -189,7 +189,7 @@
       <p>提交唯一通道是命令行 <code>scripts/submit.py</code>,按 <b>T1 → T2 → T3</b> 分题各交各的模型。T1 只交无力模型权重;T2 / T3 交权重 + 整个代码库(CLI 自动打包上传)。评测机用<b>你的</b>代码起推理服务,在 ZMQ 进程隔离 + 沙箱里跑分;成功率与力质量分均由主办方 harness 从仿真算出,选手自报无效。每队每日(UTC+8)≤ 2 次,顺序解锁(过 T1 才能交 T2,过 T2 才能交 T3)。</p>
     </div>
     <p style="margin-top:0.2rem;color:var(--muted);font-size:0.95rem">
-      <b style="color:var(--text)">T1(无力保底)</b>:用给定无力数据集 + 官方 config 训无力模型,<b>只交权重</b>:
+      <b style="color:var(--text)">T1(仅视觉版本)</b>:用给定无力数据集 + 官方 config 训无力模型,<b>只交权重</b>:
     </p>
     <div class="code"><span class="c"># T1:只交权重,不带代码</span>
 python scripts/submit.py <span class="a">--track</span> T1 <span class="a">--server</span> http://&lt;评测服务器&gt;:8080 <span class="a">--token</span> &lt;队伍令牌&gt; \

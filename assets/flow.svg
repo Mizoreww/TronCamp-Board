@@ -26,7 +26,7 @@
 
     <rect class="key" x="270" y="44" width="150" height="56" rx="7"/>
     <text x="345" y="66" text-anchor="middle" class="s" fill="#38e1d4" font-size="11">scripts/submit.py</text>
-    <text x="345" y="83" text-anchor="middle" class="s">--track · --code-dir · --ckpt-file</text>
+    <text x="345" y="83" text-anchor="middle" class="s">--track · --code-dir</text>
 
     <rect class="key" x="516" y="44" width="150" height="56" rx="7"/>
     <text x="591" y="66" text-anchor="middle" class="t" font-size="12.5">后端 API :8080</text>
@@ -95,11 +95,11 @@
   <line x1="24" y1="432" x2="936" y2="432" stroke="#161c25" stroke-width="1"/>
   <g>
     <rect x="24" y="448" width="258" height="48" rx="7" fill="#131822" stroke="#283243" stroke-width="1.2"/>
-    <text x="153" y="470" text-anchor="middle" class="t" font-size="12.5">T1 · 无力保底</text>
+    <text x="153" y="470" text-anchor="middle" class="t" font-size="12.5">T1 · 仅视觉版本</text>
     <text x="153" y="487" text-anchor="middle" class="s">给定无力数据集 + 官方 config · SR ≥ 0.25</text>
 
     <rect x="351" y="448" width="258" height="48" rx="7" fill="#131822" stroke="#283243" stroke-width="1.2"/>
-    <text x="480" y="470" text-anchor="middle" class="t" font-size="12.5">T2 · 有力保底</text>
+    <text x="480" y="470" text-anchor="middle" class="t" font-size="12.5">T2 · 加入力信号</text>
     <text x="480" y="487" text-anchor="middle" class="s">开放 · 交代码包 + 权重 · SR ≥ 0.55</text>
 
     <rect x="678" y="448" width="258" height="48" rx="7" fill="#10141c" stroke="#1d7d77" stroke-width="1.3"/>
