@@ -1,26 +1,83 @@
 {
-  "generated_at": "2026-06-15T22:27:00Z",
+  "generated_at": "2026-06-16 06:20:18",
   "deadline": "2026-06-22T16:00:00Z",
   "final_unlocked": false,
   "dev": [
     {
+      "rank": 1,
       "team": "DemoForce队",
       "t1": {
         "pass": true,
-        "success_rate": 0.28
+        "success_rate": 0.368
       },
       "t2": {
         "pass": true,
-        "success_rate": 0.9
+        "success_rate": 0.84
       },
       "t3": {
-        "score": 0.9319706936503485,
-        "wipe_rate": 0.973,
-        "force_quality": 0.8362356455011617
+        "score": 0.9296,
+        "wipe_rate": 0.967,
+        "force_quality": 0.843
       },
       "n_submissions": 3,
-      "last_submit": "2026-06-15 21:53:59",
-      "rank": 1
+      "last_submit": "2026-06-16 06:20:18"
+    },
+    {
+      "rank": 2,
+      "team": "示例队 Alpha",
+      "t1": {
+        "pass": true,
+        "success_rate": 0.74
+      },
+      "t2": {
+        "pass": true,
+        "success_rate": 0.74
+      },
+      "t3": {
+        "score": 0.6215,
+        "wipe_rate": 0.83,
+        "force_quality": 0.71
+      },
+      "n_submissions": 3,
+      "last_submit": "2026-06-15 09:41:00"
+    },
+    {
+      "rank": 3,
+      "team": "示例队 Beta",
+      "t1": {
+        "pass": true,
+        "success_rate": 0.62
+      },
+      "t2": {
+        "pass": true,
+        "success_rate": 0.62
+      },
+      "t3": {
+        "score": 0.569,
+        "wipe_rate": 0.78,
+        "force_quality": 0.66
+      },
+      "n_submissions": 2,
+      "last_submit": "2026-06-15 08:02:00"
+    },
+    {
+      "rank": 4,
+      "team": "示例队 Gamma",
+      "t1": {
+        "pass": true,
+        "success_rate": 0.4
+      },
+      "t2": {
+        "pass": false,
+        "success_rate": 0.4
+      },
+      "t3": {
+        "score": null,
+        "wipe_rate": null,
+        "force_quality": null
+      },
+      "n_submissions": 1,
+      "last_submit": "2026-06-15 07:30:00"
     }
   ],
   "final": []
