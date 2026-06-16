@@ -205,6 +205,15 @@ python scripts/submit.py <span class="a">--track</span> T3 <span class="a">--ser
     </p>
     <p style="margin-top:1rem;color:var(--muted);font-size:0.9rem">你可自由改数据处理 / 表征 / 力注入 / 架构(T3 改进方向 A–D);但只拿得到 ZMQ 白名单观测、读不到私有 seed,分数由 harness 算 —— <b style="color:var(--text)">改 I/O 是开放挑战要的,作弊作不了</b>。</p>
 
+    <div class="sec-head" style="margin-top:2.6rem;margin-bottom:1rem">
+      <h2 style="font-size:1.3rem">提交与评测全流程</h2>
+      <p>从命令行提交到 GitHub Pages 上榜的端到端数据流:前端 CLI → 后端闸门 → 评测 worker(ZMQ 进程隔离 + 沙箱)→ 榜单,以及 T1 → T2 → T3 顺序解锁、看榜改进的反馈闭环。</p>
+    </div>
+    <figure class="fig fig-wide">
+      <img src="./assets/flow.svg" alt="TronCamp 前端后端系统与提交评测流程图">
+      <figcaption>分题提交 · 自动评测 · 实时上榜的端到端流程。提交唯一走 <code>scripts/submit.py</code>;T1 用官方无力 config、T2/T3 解压选手代码包在沙箱内评测;主榜按 T3 绝对分排名。</figcaption>
+    </figure>
+
     <div class="sec-head" style="margin-top:2.4rem;margin-bottom:1rem">
       <h2 style="font-size:1.3rem">最终截止前还需提交</h2>
       <p>赛中只需按题用 <code>submit.py</code> 提交模型自动评测上榜;<b>最终截止前</b>另需提交以下两项,用于复现核验与评审:</p>
