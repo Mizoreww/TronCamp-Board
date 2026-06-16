@@ -104,7 +104,7 @@
 
     <rect x="678" y="448" width="258" height="48" rx="7" fill="#10141c" stroke="#1d7d77" stroke-width="1.3"/>
     <text x="807" y="470" text-anchor="middle" class="t" font-size="12.5" fill="#38e1d4">T3 · 改进竞技场 · 主榜</text>
-    <text x="807" y="487" text-anchor="middle" class="s">0.5·擦除 + 0.5·力质量 · 排名</text>
+    <text x="807" y="487" text-anchor="middle" class="s">0.7·擦除 + 0.3·力质量 · 排名</text>
   </g>
   <line class="ln" x1="282" y1="472" x2="345" y2="472" marker-end="url(#ah)"/>
   <line class="ln" x1="609" y1="472" x2="672" y2="472" marker-end="url(#ah)"/>
